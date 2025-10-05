@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
-import { Suspense } from "react"
 
 const projects = [
   {
@@ -80,10 +79,12 @@ const expandableSections = [
 ]
 
 function useIntersectionObserver(options = {}) {
-  const [isIntersecting, setIsIntersecting] = useState(false)
+  // Default to visible during SSR to avoid invisible content before hydration
+  const [isIntersecting, setIsIntersecting] = useState<boolean>(typeof window === "undefined")
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (typeof window === "undefined") return
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting)
@@ -101,14 +102,8 @@ function useIntersectionObserver(options = {}) {
   return [ref, isIntersecting] as const
 }
 
-function LazySection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <Suspense
-      fallback={<div className={`${className} animate-pulse bg-muted/20 rounded`} style={{ minHeight: "100px" }} />}
-    >
-      {children}
-    </Suspense>
-  )
+function LazySection({ children }: { children: React.ReactNode }) {
+  return <>{children}</>
 }
 
 export default function Portfolio() {
