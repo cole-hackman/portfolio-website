@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
+import { Suspense } from "react"
 
 const projects = [
   {
@@ -101,7 +102,13 @@ function useIntersectionObserver(options = {}) {
 }
 
 function LazySection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <>{children}</>
+  return (
+    <Suspense
+      fallback={<div className={`${className} animate-pulse bg-muted/20 rounded`} style={{ minHeight: "100px" }} />}
+    >
+      {children}
+    </Suspense>
+  )
 }
 
 export default function Portfolio() {
