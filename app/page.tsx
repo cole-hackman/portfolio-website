@@ -486,7 +486,11 @@ export default function Portfolio() {
         {/* Expandable Sections */}
         <section className="mb-12">
           {expandableSections.map((section) => (
-            <details key={section.id} className="border-b border-border py-4">
+            <details
+              key={section.id}
+              className="border-b border-border py-4"
+              open={expandedSections.includes(section.id)}
+            >
               <summary
                 onClick={(e) => {
                   e.preventDefault()
