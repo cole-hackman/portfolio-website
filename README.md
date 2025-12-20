@@ -1,30 +1,78 @@
-# Portfolio website clone
+# portfolio-website
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Personal portfolio website for Cole Hackman — CS student at Cal Poly SLO.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/coles-projects-303549bb/cole-hackman-portfolio)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/eFqyRuBxyPX)
+[![Standard Readme compliant](https://img.shields.io/badge/readme-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![Next.js](https://img.shields.io/badge/Next.js-14-000000.svg)](https://nextjs.org/)
+[![Deployed on Vercel](https://img.shields.io/badge/deployed-Vercel-black.svg)](https://colehackman.dev)
 
-## Overview
+## Table of Contents
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+- [Background](#background)
+- [Install](#install)
+- [Usage](#usage)
+- [Tech Stack](#tech-stack)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Deployment
+## Background
 
-Your project is live at:
+A minimal, responsive portfolio showcasing my projects, work experience, and technical skills. Built with Next.js and Tailwind CSS, deployed on Vercel.
 
-**[https://vercel.com/coles-projects-303549bb/cole-hackman-portfolio](https://vercel.com/coles-projects-303549bb/cole-hackman-portfolio)**
+**Live site:** [colehackman.dev](https://colehackman.dev)
 
-## Build your app
+Features:
+- Dark/light mode toggle
+- Expandable biography sections
+- Contact form with mailto integration
+- Mobile-responsive design
+- SEO optimized with meta tags and structured data
 
-Continue building your app on:
+## Install
 
-**[https://v0.app/chat/projects/eFqyRuBxyPX](https://v0.app/chat/projects/eFqyRuBxyPX)**
+Requires **Node.js 18+** and **pnpm**.
 
-## How It Works
+```bash
+git clone https://github.com/cole-hackman/portfolio-website
+cd portfolio-website
+pnpm install
+```
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## Usage
+
+Run the development server:
+
+```bash
+pnpm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build for Production
+
+```bash
+pnpm run build
+pnpm start
+```
+
+## Tech Stack
+
+- **Framework:** Next.js 14
+- **Styling:** Tailwind CSS 4
+- **Fonts:** Inter, JetBrains Mono (via Google Fonts)
+- **Deployment:** Vercel
+- **UI Components:** Radix UI primitives
+
+## Maintainers
+
+- [@cole-hackman](https://github.com/cole-hackman)
+
+## Contributing
+
+This is a personal portfolio, but feel free to open an [issue](https://github.com/cole-hackman/portfolio-website/issues) if you spot a bug or have suggestions.
+
+## License
+
+MIT (SPDX: MIT). © 2025 Cole Hackman.
