@@ -25,36 +25,34 @@ const projects = [
   },
 ]
 
-const previousVentures = [
-  { year: "(2020 - 2024)", name: "Cole Soles", description: "Ecommerce resale business - $150K revenue, 25% margins" },
+const pastWork = [
+  {
+    year: "(Aug 2025 - Dec 2025)",
+    name: "Elite Bricks",
+    description: "AI & Software Engineering Intern: Python Discord bot automating promo codes for 700+ clients, built AI workflow tools with n8n and Make",
+  },
+  {
+    year: "(Jun 2025 - Sep 2025)",
+    name: "Ewing and Clark, Inc.",
+    description: "Summer IT Volunteer: GPT-4 powered listing tool reducing write time from 20 to 3 min, React + Tailwind frontend",
+  },
   { year: "(2020 - 2025)", name: "Lake Washington Detailing", description: "Car detailing business - 200+ clients" },
-  { year: "(2024 - 2025)", name: "Seatowns Vintage", description: "Vintage sourcing and resale business - 600+ sales" },
 ]
 
 const workExperience = [
   {
-    year: "(Aug 2025 - Present)",
-    name: "Elite Bricks",
-    description: "AI & Software Engineering Intern: Python Discord bot, automation",
-  },
-  {
-    year: "(Jun 2025 - Aug 2025)",
-    name: "Ewing and Clark, Inc.",
-    description: "AI Development Intern: GPT-4 + Python service, React frontend",
-  },
-  {
-    year: "(Sep 2025 - Present)",
-    name: "Perplexity AI",
-    description: "Campus Partner: representing AI tools at Cal Poly",
+    year: "(Mar 2020 - Present)",
+    name: "Cole Soles",
+    description: "Founder & Operator: Scaled e-commerce business to $300K+ sales across eBay, StockX, and private wholesale clients. Transitioned to a focus on vintage in 2024",
   },
 ]
 
 const education = [
   {
-    year: "(2024 - 2028)",
+    year: "(2024 - 2027)",
     name: "Cal Poly SLO",
-    description: "B.S. Computer Science, Junior Standing",
-    activities: "Involvement: CS+AI Club, AWS Cloud Club",
+    description: "B.S. in Computer Science — GPA: 3.873",
+    activities: "Dean's List every quarter; member of CS+AI Club and CodeBox Club. Campus Partner for Perplexity AI.",
   },
   {
     year: "(2020 - 2024)",
@@ -319,9 +317,8 @@ export default function Portfolio() {
         <LazySection>
           <section
             ref={introRef}
-            className={`mb-12 transition-all duration-700 ${
-              introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
+            className={`mb-12 transition-all duration-700 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
           >
             <h1 className="text-xl md:text-2xl font-bold mb-4">Hey, I'm Cole.</h1>
             <p className="mb-2 text-sm md:text-base">
@@ -346,9 +343,8 @@ export default function Portfolio() {
         <LazySection>
           <section
             ref={achievementsRef}
-            className={`mb-12 transition-all duration-700 delay-100 ${
-              achievementsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
+            className={`mb-12 transition-all duration-700 delay-100 ${achievementsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
           >
             <h2 className="text-base md:text-lg font-bold mb-4">A FEW ACHIEVEMENTS:</h2>
             <ul className="space-y-2 text-xs md:text-sm" role="list">
@@ -366,9 +362,8 @@ export default function Portfolio() {
           <section
             id="education"
             ref={educationRef}
-            className={`mb-12 transition-all duration-700 delay-200 ${
-              educationInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
+            className={`mb-12 transition-all duration-700 delay-200 ${educationInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
           >
             <h2 className="text-base md:text-lg font-bold mb-6">EDUCATION:</h2>
             <div className="space-y-6">
@@ -391,9 +386,8 @@ export default function Portfolio() {
           <section
             id="projects"
             ref={projectsRef}
-            className={`mb-12 transition-all duration-700 delay-300 ${
-              projectsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
+            className={`mb-12 transition-all duration-700 delay-300 ${projectsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
           >
             <h2 className="text-base md:text-lg font-bold mb-6">SOME PROJECTS I'M WORKING ON:</h2>
             <div className="space-y-6">
@@ -438,17 +432,17 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* Previous Ventures */}
+        {/* Past Work */}
         <section className="mb-12">
-          <h2 className="text-base md:text-lg font-bold mb-6">MY PREVIOUS VENTURES:</h2>
+          <h2 className="text-base md:text-lg font-bold mb-6">PAST WORK:</h2>
           <div className="space-y-6">
-            {previousVentures.map((venture, index) => (
+            {pastWork.map((work, index) => (
               <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
-                  <h3 className="text-accent font-medium text-sm md:text-base">{venture.name}</h3>
-                  <time className="text-xs text-muted-foreground">{venture.year}</time>
+                  <h3 className="text-accent font-medium text-sm md:text-base">{work.name}</h3>
+                  <time className="text-xs text-muted-foreground">{work.year}</time>
                 </div>
-                <p className="text-xs md:text-sm text-foreground leading-relaxed">{venture.description}</p>
+                <p className="text-xs md:text-sm text-foreground leading-relaxed">{work.description}</p>
               </article>
             ))}
           </div>
@@ -459,13 +453,13 @@ export default function Portfolio() {
           <h2 className="text-base md:text-lg font-bold mb-4">TECHNICAL SKILLS:</h2>
           <div className="text-xs md:text-sm space-y-2">
             <p>
-              <strong>Languages:</strong> Python, Java, JavaScript
+              <strong>Languages:</strong> Python, Java, JavaScript/TypeScript
             </p>
             <p>
-              <strong>Frameworks:</strong> React, Next.js, Node.js, Flask, Express, Tailwind
+              <strong>Web & Backend:</strong> React, Tailwind CSS, Bootstrap, Node.js, Express, Flask, PostgreSQL
             </p>
             <p>
-              <strong>Tools:</strong> Git, Docker, DigitalOcean, Figma, OpenAI API, Hugging Face
+              <strong>Tools & AI:</strong> Git, GitHub, Vercel, Render, n8n/Make, OpenAI API, discord.py, OAuth2
             </p>
           </div>
         </section>
