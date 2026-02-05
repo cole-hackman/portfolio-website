@@ -6,16 +6,22 @@ import { useState, useEffect, useRef } from "react"
 
 const projects = [
   {
+    name: "RushRank",
+    description:
+      "Real-time, multi-tenant decision-support platform with collaborative workflows, tested with 100+ concurrent users. Built WebSocket-based coordination in FastAPI for sub-second state sync across devices.",
+    url: "#",
+  },
+  {
+    name: "SC Toolkit",
+    description:
+      "Full-stack SoundCloud toolkit with OAuth2, playlist management, and batch operations. Scaled from 10 to 105+ users (534 monthly page views) in first month.",
+    url: "https://github.com/cole-hackman/soundcloud-toolkit",
+  },
+  {
     name: "unfollowr",
     description:
       "See who isn't following you back on Instagram: fast, private, and API-free (uses your exported HTML).",
     url: "https://github.com/cole-hackman/unfollowr",
-  },
-  {
-    name: "SoundCloud Toolkit",
-    description:
-      "Web toolkit for SoundCloud power users: merge playlists, turn likes into playlists, reorder; secure sessions",
-    url: "https://github.com/cole-hackman/soundcloud-toolkit",
   },
   {
     name: "Lake Washington Detailing Website",
@@ -29,21 +35,26 @@ const pastWork = [
   {
     year: "(Aug 2025 - Dec 2025)",
     name: "Elite Bricks",
-    description: "AI & Software Engineering Intern: Python Discord bot automating promo codes for 700+ clients, built AI workflow tools with n8n and Make",
+    description: "AI & Software Engineering Intern: Engineered Python Discord bot automating promo code distribution for 700+ clients. Built internal automation workflows using n8n/Make and external APIs.",
   },
   {
     year: "(Jun 2025 - Sep 2025)",
     name: "Ewing and Clark, Inc.",
-    description: "Summer IT Volunteer: GPT-4 powered listing tool reducing write time from 20 to 3 min, React + Tailwind frontend",
+    description: "Software Engineering Intern (AI/Automation): Architected GPT-4-powered Python tool for 20+ luxury real estate agents, reducing listing draft time from 20 minutes to 3 minutes. Developed React + Tailwind web app with version history and approval workflow.",
   },
   { year: "(2020 - 2025)", name: "Lake Washington Detailing", description: "Car detailing business - 200+ clients" },
 ]
 
 const workExperience = [
   {
+    year: "(Jan 2026 - Present)",
+    name: "PolyBuys (CodeBox Club)",
+    description: "Backend Software Developer: Built backend authentication and authorization flows for campus-restricted marketplace. Implemented listing-scoped messaging services with conversation creation and permission checks. Collaborated using GitHub issues, PRs, unit tests, and CI.",
+  },
+  {
     year: "(Mar 2020 - Present)",
     name: "Cole Soles",
-    description: "Founder & Operator: Scaled e-commerce business to $300K+ sales across eBay, StockX, and private wholesale clients. Transitioned to a focus on vintage in 2024",
+    description: "Founder & Operator: Founded and scaled e-commerce business to $300K+ in sales across 1,000+ transactions. Built inventory and profitability tracking systems to manage stock, margin, and cash flow.",
   },
 ]
 
@@ -51,8 +62,8 @@ const education = [
   {
     year: "(2024 - 2027)",
     name: "Cal Poly SLO",
-    description: "B.S. in Computer Science — GPA: 3.873",
-    activities: "Dean's List every quarter; member of CS+AI Club and CodeBox Club. Campus Partner for Perplexity AI.",
+    description: "B.S. in Computer Science — GPA: 3.861",
+    activities: "Dean's List every quarter; Computer Science Lead for AI Ethics Lab; member of CodeBox Club. Campus Partner for Perplexity AI.",
   },
   {
     year: "(2020 - 2024)",
@@ -69,12 +80,7 @@ const directoryItems = [
   { name: "github", url: "https://github.com/cole-hackman/" },
 ]
 
-const expandableSections = [
-  { id: "how-started", title: "HOW I STARTED" },
-  { id: "goal", title: "MY GOAL" },
-  { id: "motivations", title: "MY MOTIVATIONS" },
-  { id: "where-see-myself", title: "MY FUTURE?" },
-]
+
 
 function useIntersectionObserver(options = {}) {
   // Default to visible during SSR to avoid invisible content before hydration
@@ -105,7 +111,6 @@ function LazySection({ children }: { children: React.ReactNode }) {
 }
 
 export default function Portfolio() {
-  const [expandedSections, setExpandedSections] = useState<string[]>([])
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
@@ -120,7 +125,7 @@ export default function Portfolio() {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
   const [introRef, introInView] = useIntersectionObserver()
-  const [achievementsRef, achievementsInView] = useIntersectionObserver()
+
   const [educationRef, educationInView] = useIntersectionObserver()
   const [projectsRef, projectsInView] = useIntersectionObserver()
 
@@ -138,12 +143,6 @@ export default function Portfolio() {
     setIsDarkMode(newDarkMode)
     document.documentElement.classList.toggle("dark", newDarkMode)
     localStorage.setItem("theme", newDarkMode ? "dark" : "light")
-  }
-
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections((prev) =>
-      prev.includes(sectionId) ? prev.filter((id) => id !== sectionId) : [...prev, sectionId],
-    )
   }
 
   useEffect(() => {
@@ -339,23 +338,7 @@ export default function Portfolio() {
           </section>
         </LazySection>
 
-        {/* Achievements */}
-        <LazySection>
-          <section
-            ref={achievementsRef}
-            className={`mb-12 transition-all duration-700 delay-100 ${achievementsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-          >
-            <h2 className="text-base md:text-lg font-bold mb-4">A FEW ACHIEVEMENTS:</h2>
-            <ul className="space-y-2 text-xs md:text-sm" role="list">
-              <li>• Built Cole Soles to $150K revenue with 25% margins in high school</li>
-              <li>• Cut listing description time by 90% with AI automation at E&C</li>
-              <li>• Scaled support for 700+ clients with automated Discord bot</li>
-              <li>• Managed 200+ client detailing business with custom booking system</li>
-              <li>• Selected as Campus Partner for Perplexity AI</li>
-            </ul>
-          </section>
-        </LazySection>
+
 
         {/* Education */}
         <LazySection>
@@ -453,13 +436,16 @@ export default function Portfolio() {
           <h2 className="text-base md:text-lg font-bold mb-4">TECHNICAL SKILLS:</h2>
           <div className="text-xs md:text-sm space-y-2">
             <p>
-              <strong>Languages:</strong> Python, Java, JavaScript/TypeScript
+              <strong>Languages:</strong> Python, Java, C, TypeScript
             </p>
             <p>
-              <strong>Web & Backend:</strong> React, Tailwind CSS, Bootstrap, Node.js, Express, Flask, PostgreSQL
+              <strong>Backend & Systems:</strong> FastAPI, Node.js, PostgreSQL, WebSockets, REST APIs, OAuth2
             </p>
             <p>
-              <strong>Tools & AI:</strong> Git, GitHub, Vercel, Render, n8n/Make, OpenAI API, discord.py, OAuth2
+              <strong>Frontend:</strong> React, Next.js, Tailwind CSS
+            </p>
+            <p>
+              <strong>Tools:</strong> Git, GitHub, Supabase, Vercel, Render, OpenAI API
             </p>
           </div>
         </section>
@@ -477,55 +463,7 @@ export default function Portfolio() {
           </p>
         </section>
 
-        {/* Expandable Sections */}
-        <section className="mb-12">
-          {expandableSections.map((section) => (
-            <details
-              key={section.id}
-              className="border-b border-border py-4"
-              open={expandedSections.includes(section.id)}
-            >
-              <summary
-                onClick={(e) => {
-                  e.preventDefault()
-                  toggleSection(section.id)
-                }}
-                className="flex justify-between items-center w-full text-left text-xs md:text-sm hover:text-accent cursor-pointer list-none"
-              >
-                <span>{section.title}</span>
-                <span className="text-xs">{expandedSections.includes(section.id) ? "CLOSE" : "OPEN"}</span>
-              </summary>
-              {expandedSections.includes(section.id) && (
-                <div className="mt-4 text-xs md:text-sm text-muted-foreground">
-                  {section.id === "how-started" && (
-                    <p>
-                      Started with Cole Soles in high school, learning ecommerce and business fundamentals. Discovered I
-                      loved the intersection of technology and business problem-solving.
-                    </p>
-                  )}
-                  {section.id === "goal" && (
-                    <p>
-                      To build technology that creates real value and solves meaningful problems. Interested in AI
-                      automation, full-stack development, and entrepreneurship.
-                    </p>
-                  )}
-                  {section.id === "motivations" && (
-                    <p>
-                      I'm motivated by the challenge of turning ideas into reality and the impact of well-built
-                      technology on real businesses and people.
-                    </p>
-                  )}
-                  {section.id === "where-see-myself" && (
-                    <p>
-                      Ideally, I will be building my own company that combines AI/ML with practical business
-                      applications, or working at a high-growth tech company solving complex problems.
-                    </p>
-                  )}
-                </div>
-              )}
-            </details>
-          ))}
-        </section>
+
 
         {/* Directory */}
         <section id="contact-section" className="mb-12">
