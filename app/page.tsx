@@ -15,13 +15,13 @@ const projects = [
     name: "SC Toolkit",
     description:
       "Full-stack SoundCloud toolkit with OAuth2, playlist management, and batch operations. Scaled from 10 to 105+ users (534 monthly page views) in first month.",
-    url: "https://github.com/cole-hackman/soundcloud-toolkit",
+    url: "https://soundcloudtoolkit.com",
   },
   {
     name: "unfollowr",
     description:
       "See who isn't following you back on Instagram: fast, private, and API-free (uses your exported HTML).",
-    url: "https://github.com/cole-hackman/unfollowr",
+    url: "https://unfollowr.app",
   },
   {
     name: "Lake Washington Detailing Website",
