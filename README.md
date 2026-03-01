@@ -7,44 +7,49 @@ Personal portfolio website for Cole Hackman — CS student at Cal Poly SLO.
 [![Next.js](https://img.shields.io/badge/Next.js-14-000000.svg)](https://nextjs.org/)
 [![Deployed on Vercel](https://img.shields.io/badge/deployed-Vercel-black.svg)](https://colehackman.dev)
 
-## Table of Contents
-
-- [Background](#background)
-- [Install](#install)
-- [Usage](#usage)
-- [Tech Stack](#tech-stack)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Background
-
-A minimal, responsive portfolio showcasing my projects, work experience, and technical skills. Built with Next.js and Tailwind CSS, deployed on Vercel.
-
 **Live site:** [colehackman.dev](https://colehackman.dev)
 
-Features:
-- Dark/light mode toggle
-- Expandable biography sections
-- Contact form with mailto integration
-- Mobile-responsive design
-- SEO optimized with meta tags and structured data
+## 1. What Is the Project?
 
-## Install
+**portfolio-website** is a personal, responsive portfolio application for Cole Hackman. It serves as a central hub to showcase projects, work experience, education, and technical skills in a clean and minimal interface.
+
+## 2. Why Was This Project Built?
+
+This project was built to establish a professional online presence and create a centralized place to display my background and technical capabilities. It serves as a dynamic, easily accessible resume for connecting with peers, recruiters, and clients.
+
+## 3. What Problems Did It Solve?
+
+Traditional static resumes can be difficult to quickly parse and don't effectively showcase interactive or responsive design skills. This portfolio provides a fast, responsive, and easily navigable interface to present my experience while demonstrating proficiency with modern web development tools like Next.js and Tailwind CSS. It also serves as a central directory for all my professional links (LinkedIn, GitHub, Email).
+
+## 4. What Technologies Are Used?
+
+- **Frontend Framework:** Next.js 14, React 18
+- **Styling:** Tailwind CSS 4
+- **UI Components:** Radix UI primitives, Lucide React
+- **Fonts:** Inter, JetBrains Mono (via Google Fonts)
+- **Deployment & Analytics:** Vercel
+
+## 5. What Did You Implement?
+
+- Fully responsive design for seamless mobile and desktop viewing
+- Dark/light mode toggle with system preference detection and local storage
+- Interactive and animated sections using Intersection Observer for scroll animations
+- Custom contact form with `mailto` integration for direct communication
+- SEO optimization with semantic HTML structure
+
+## 6. How Can Someone Run It Locally?
 
 Requires **Node.js 18+** and **pnpm**.
 
 ```bash
+# Clone the repository
 git clone https://github.com/cole-hackman/portfolio-website
 cd portfolio-website
+
+# Install dependencies
 pnpm install
-```
 
-## Usage
-
-Run the development server:
-
-```bash
+# Run the development server
 pnpm run dev
 ```
 
@@ -57,21 +62,9 @@ pnpm run build
 pnpm start
 ```
 
-## Tech Stack
-
-- **Framework:** Next.js 14
-- **Styling:** Tailwind CSS 4
-- **Fonts:** Inter, JetBrains Mono (via Google Fonts)
-- **Deployment:** Vercel
-- **UI Components:** Radix UI primitives
-
 ## Maintainers
 
 - [@cole-hackman](https://github.com/cole-hackman)
-
-## Contributing
-
-This is a personal portfolio, but feel free to open an [issue](https://github.com/cole-hackman/portfolio-website/issues) if you spot a bug or have suggestions.
 
 ## License
 
