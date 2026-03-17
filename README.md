@@ -7,11 +7,11 @@ Personal portfolio website for Cole Hackman — CS student at Cal Poly SLO.
 [![Next.js](https://img.shields.io/badge/Next.js-14-000000.svg)](https://nextjs.org/)
 [![Deployed on Vercel](https://img.shields.io/badge/deployed-Vercel-black.svg)](https://colehackman.dev)
 
-**Live site:** [colehackman.dev](https://colehackman.dev)
+**Live site:** [colehackman.com](https://colehackman.com)
 
 ## 1. What Is the Project?
 
-**portfolio-website** is a personal, responsive portfolio application for Cole Hackman. It serves as a central hub to showcase projects, work experience, education, and technical skills in a clean and minimal interface.
+**portfolio-website** is a personal, responsive portfolio application. It serves as a central hub to showcase projects, work experience, education, and technical skills in a clean and minimal interface.
 
 ## 2. Why Was This Project Built?
 
