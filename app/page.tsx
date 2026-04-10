@@ -8,26 +8,34 @@ const projects = [
   {
     name: "RushRank",
     description:
-      "Real-time, multi-tenant decision-support platform with collaborative workflows, tested with 100+ concurrent users. Built WebSocket-based coordination in FastAPI for sub-second state sync across devices.",
-    url: "#",
-  },
-  {
-    name: "SC Toolkit",
-    description:
-      "Full-stack SoundCloud toolkit with OAuth2, playlist management, and batch operations. Scaled from 10 to 105+ users (534 monthly page views) in first month.",
-    url: "https://soundcloudtoolkit.com",
+      "Rush management app for my fraternity — live anonymous voting with a swipe-based interface, real-time results via FastAPI + Supabase, dynamic QR code check-ins, and analytics dashboards",
   },
   {
     name: "unfollowr",
     description:
-      "See who isn't following you back on Instagram: fast, private, and API-free (uses your exported HTML).",
+      "Privacy-first Instagram analytics tool serving 1K+ users. Upload your data exports to see who unfollowed you — no login required. Opt-in Gemini AI classifies accounts and scores unfollow suggestions. 5.3K clicks in 3 months, ranks #2 on Google.",
     url: "https://unfollowr.app",
+  },
+  {
+    name: "SC Toolkit",
+    description:
+      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. OAuth2 + PKCE with AES-256-GCM encryption. Scaled to 2K users with zero paid ads.",
+    url: "https://soundcloudtoolkit.com",
   },
   {
     name: "Lake Washington Detailing Website",
     description:
       "Mobile detailing business site with Calendly scheduling and vehicle-based estimator that cut quoting time 87%.",
-    url: "https://lakewashingtondetailing.com",
+  },
+  {
+    name: "PolyEats",
+    description:
+      "Meal planning and macro tracking app for Cal Poly students, built around campus dining menus. AI-generated meal plans via Supabase Edge Functions + OpenAI, with a local planner fallback. Budget optimizer and progress tracking. Currently in development.",
+  },
+  {
+    name: "AI Listing Generator",
+    description:
+      "GPT-5-powered tool for real estate professionals to generate listing descriptions in minutes. Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison. Built with React, TypeScript, and Supabase.",
   },
 ]
 
@@ -37,15 +45,15 @@ const pastWork = [
     name: "Elite Bricks",
     description: "AI & Software Engineering Intern: Engineered Python Discord bot automating promo code distribution for 700+ clients. Built internal automation workflows using n8n/Make and external APIs.",
   },
-  {
-    year: "(Jun 2025 - Sep 2025)",
-    name: "Ewing and Clark, Inc.",
-    description: "Software Engineering Intern (AI/Automation): Architected GPT-4-powered Python tool for 20+ luxury real estate agents, reducing listing draft time from 20 minutes to 3 minutes. Developed React + Tailwind web app with version history and approval workflow.",
-  },
   { year: "(2020 - 2025)", name: "Lake Washington Detailing", description: "Car detailing business - 200+ clients" },
 ]
 
 const workExperience = [
+  {
+    year: "(Sep 2025 - Present)",
+    name: "AIEL (AI Ethics Lab)",
+    description: "CS Lead: Leading the computer science side of an interdisciplinary research lab. Co-authoring a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI. Work includes faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
+  },
   {
     year: "(Jan 2026 - Present)",
     name: "PolyBuys (CodeBox Club)",
@@ -62,8 +70,8 @@ const education = [
   {
     year: "(2024 - 2027)",
     name: "Cal Poly SLO",
-    description: "B.S. in Computer Science — GPA: 3.861",
-    activities: "Dean's List every quarter; Computer Science Lead for AI Ethics Lab; member of CodeBox Club. Campus Partner for Perplexity AI.",
+    description: "B.S. in Computer Science — GPA: 3.884",
+    activities: "Dean's List every quarter; Computer Science Lead for AI Ethics Lab; member of CodeBox Club. Campus Partner for Perplexity AI; Creative Ambassador for CapCut; Ambassador for Lovable.",
   },
   {
     year: "(2020 - 2024)",
@@ -377,17 +385,25 @@ export default function Portfolio() {
               {projects.map((project, index) => (
                 <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <a
-                      href={project.url}
-                      className="text-accent hover:underline font-medium text-sm md:text-base"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {project.name}
-                    </a>
-                    <span className="text-xs text-muted-foreground" aria-label="External link">
-                      ↗
-                    </span>
+                    {project.url ? (
+                      <>
+                        <a
+                          href={project.url}
+                          className="text-accent hover:underline font-medium text-sm md:text-base"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          {project.name}
+                        </a>
+                        <span className="text-xs text-muted-foreground" aria-label="External link">
+                          ↗
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-accent font-medium text-sm md:text-base">
+                        {project.name}
+                      </span>
+                    )}
                   </div>
                   <p className="text-xs md:text-sm text-foreground leading-relaxed">{project.description}</p>
                 </article>
@@ -436,16 +452,16 @@ export default function Portfolio() {
           <h2 className="text-base md:text-lg font-bold mb-4">TECHNICAL SKILLS:</h2>
           <div className="text-xs md:text-sm space-y-2">
             <p>
-              <strong>Languages:</strong> Python, Java, C, TypeScript
+              <strong>Languages:</strong> Python, Java, C, JavaScript/TypeScript
             </p>
             <p>
-              <strong>Backend & Systems:</strong> FastAPI, Node.js, PostgreSQL, WebSockets, REST APIs, OAuth2
+              <strong>Backend & Systems:</strong> FastAPI, Node.js, Express, PostgreSQL, Prisma, WebSockets, REST APIs, OAuth2/PKCE
             </p>
             <p>
-              <strong>Frontend:</strong> React, Next.js, Tailwind CSS
+              <strong>Frontend:</strong> React, Next.js, Vite, Tailwind CSS
             </p>
             <p>
-              <strong>Tools:</strong> Git, GitHub, Supabase, Vercel, Render, OpenAI API
+              <strong>Tools & AI:</strong> Git, GitHub, Supabase (Auth/RLS), Vercel, Render, Linear, OpenAI API, Google Gemini, Cursor
             </p>
           </div>
         </section>
@@ -453,13 +469,8 @@ export default function Portfolio() {
         {/* TL;DR */}
         <section className="mb-12">
           <h2 className="text-base md:text-lg font-bold mb-4">TL;DR:</h2>
-          <p className="text-xs md:text-sm mb-4">I started building businesses early and haven't stopped.</p>
           <p className="text-xs md:text-sm mb-4">
-            From reselling shoes to automating real estate listings with AI, I love finding ways to use technology to
-            solve real problems and create value.
-          </p>
-          <p className="text-xs md:text-sm">
-            Currently studying CS at Cal Poly while working on AI automation and full-stack projects.
+            I started building businesses early and haven't stopped. From reselling shoes to building developer tools and AI-powered apps, I like finding problems and shipping solutions. Currently studying CS at Cal Poly while building tools people actually use.
           </p>
         </section>
 
