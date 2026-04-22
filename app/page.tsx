@@ -6,9 +6,10 @@ import { useState, useEffect, useRef } from "react"
 
 const projects = [
   {
-    name: "RushRank",
+    name: "SC Toolkit",
     description:
-      "Rush management app for my fraternity — live anonymous voting with a swipe-based interface, real-time results via FastAPI + Supabase, dynamic QR code check-ins, and analytics dashboards",
+      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. OAuth2 + PKCE with AES-256-GCM encryption. Scaled to 2K users with zero paid ads.",
+    url: "https://soundcloudtoolkit.com",
   },
   {
     name: "unfollowr",
@@ -17,15 +18,9 @@ const projects = [
     url: "https://unfollowr.app",
   },
   {
-    name: "SC Toolkit",
+    name: "AI Listing Generator",
     description:
-      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. OAuth2 + PKCE with AES-256-GCM encryption. Scaled to 2K users with zero paid ads.",
-    url: "https://soundcloudtoolkit.com",
-  },
-  {
-    name: "Lake Washington Detailing Website",
-    description:
-      "Mobile detailing business site with Calendly scheduling and vehicle-based estimator that cut quoting time 87%.",
+      "GPT-5-powered tool for real estate professionals to generate listing descriptions in minutes. Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison. Built with React, TypeScript, and Supabase.",
   },
   {
     name: "PolyEats",
@@ -33,36 +28,61 @@ const projects = [
       "Meal planning and macro tracking app for Cal Poly students, built around campus dining menus. AI-generated meal plans via Supabase Edge Functions + OpenAI, with a local planner fallback. Budget optimizer and progress tracking. Currently in development.",
   },
   {
-    name: "AI Listing Generator",
+    name: "Lake Washington Detailing Website",
     description:
-      "GPT-5-powered tool for real estate professionals to generate listing descriptions in minutes. Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison. Built with React, TypeScript, and Supabase.",
+      "Mobile detailing business site with Calendly scheduling and vehicle-based estimator that cut quoting time 87%.",
+  },
+  {
+    name: "RushRank",
+    description:
+      "Rush management app for my fraternity — live anonymous voting with a swipe-based interface, real-time results via FastAPI + Supabase, dynamic QR code check-ins, and analytics dashboards",
   },
 ]
 
 const pastWork = [
   {
     year: "(Aug 2025 - Dec 2025)",
-    name: "Elite Bricks",
-    description: "AI & Software Engineering Intern: Engineered Python Discord bot automating promo code distribution for 700+ clients. Built internal automation workflows using n8n/Make and external APIs.",
+    name: "AI & Software Engineering Intern @ Elite Bricks",
+    bullets: [
+      "Engineered Python Discord bot automating promo code distribution for 700+ clients.",
+      "Built internal automation workflows using n8n/Make and external APIs.",
+    ],
   },
-  { year: "(2020 - 2025)", name: "Lake Washington Detailing", description: "Car detailing business - 200+ clients" },
+  {
+    year: "(2020 - 2025)",
+    name: "Founder @ Lake Washington Detailing",
+    bullets: [
+      "Car detailing business serving 200+ clients.",
+    ],
+  },
 ]
 
 const workExperience = [
   {
     year: "(Sep 2025 - Present)",
-    name: "AIEL (AI Ethics Lab)",
-    description: "CS Lead: Leading the computer science side of an interdisciplinary research lab. Co-authoring a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI. Work includes faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
+    name: "CS Lead @ AIEL (AI Ethics Lab)",
+    bullets: [
+      "Leading the computer science side of an interdisciplinary research lab.",
+      "Co-authoring a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
+      "Work includes faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
+    ],
   },
   {
     year: "(Jan 2026 - Present)",
-    name: "PolyBuys (CodeBox Club)",
-    description: "Backend Software Developer: Built backend authentication and authorization flows for campus-restricted marketplace. Implemented listing-scoped messaging services with conversation creation and permission checks. Collaborated using GitHub issues, PRs, unit tests, and CI.",
+    name: "Backend Software Developer @ PolyBuys (CodeBox Club)",
+    bullets: [
+      "Built backend authentication and authorization flows for campus-restricted marketplace.",
+      "Implemented listing-scoped messaging services with conversation creation and permission checks.",
+      "Collaborated using GitHub issues, PRs, unit tests, and CI.",
+    ],
   },
   {
     year: "(Mar 2020 - Present)",
-    name: "Cole Soles",
-    description: "Founder & Operator: Founded and scaled e-commerce business to $300K+ in sales across 1,000+ transactions. Built inventory and profitability tracking systems to manage stock, margin, and cash flow.",
+    name: "Founder & Operator @ Cole Soles",
+    bullets: [
+      "Founded and scaled e-commerce business to $300K+ in sales across 1,000+ transactions.",
+      "Built inventory and profitability tracking systems to manage stock, margin, and cash flow.",
+    ],
   },
 ]
 
@@ -71,14 +91,22 @@ const education = [
     year: "(2024 - 2027)",
     name: "Cal Poly SLO",
     description: "B.S. in Computer Science — GPA: 3.884",
-    activities: "Dean's List every quarter; Computer Science Lead for AI Ethics Lab; member of CodeBox Club. Campus Partner for Perplexity AI; Creative Ambassador for CapCut; Ambassador for Lovable.",
+    bullets: [
+      "Dean's List every quarter",
+      "Creative Ambassador for CapCut",
+      "Ambassador for Lovable",
+    ],
   },
   {
     year: "(2020 - 2024)",
     name: "Seattle Preparatory School",
     description: "High School Diploma",
-    activities:
-      "Involvement: Panther Journalism Online Editor, Business Club Executive, Kairos Team Leader, NHS Master Tutor",
+    bullets: [
+      "Panther Journalism Online Editor",
+      "Business Club Executive",
+      "Kairos Team Leader",
+      "NHS Master Tutor",
+    ],
   },
 ]
 
@@ -319,7 +347,7 @@ export default function Portfolio() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-2xl mx-auto px-4 md:px-6 pb-12">
+      <main className="max-w-3xl mx-auto px-4 md:px-6 pb-12">
         {/* Introduction */}
         <LazySection>
           <section
@@ -364,8 +392,14 @@ export default function Portfolio() {
                     <h3 className="text-accent font-medium text-sm md:text-base">{edu.name}</h3>
                     <time className="text-xs text-muted-foreground">{edu.year}</time>
                   </div>
-                  <p className="text-xs md:text-sm text-foreground leading-relaxed">{edu.description}</p>
-                  <p className="text-xs md:text-sm text-foreground leading-relaxed">{edu.activities}</p>
+                  {edu.description && <p className="text-xs md:text-sm text-foreground leading-relaxed">{edu.description}</p>}
+                  {edu.bullets && (
+                    <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                      {edu.bullets.map((bullet, i) => (
+                        <li key={i}>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
                 </article>
               ))}
             </div>
@@ -425,7 +459,13 @@ export default function Portfolio() {
                   <h3 className="text-accent font-medium text-sm md:text-base">{work.name}</h3>
                   <time className="text-xs text-muted-foreground">{work.year}</time>
                 </div>
-                <p className="text-xs md:text-sm text-foreground leading-relaxed">{work.description}</p>
+                {work.bullets && (
+                  <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                    {work.bullets.map((bullet, i) => (
+                      <li key={i}>{bullet}</li>
+                    ))}
+                  </ul>
+                )}
               </article>
             ))}
           </div>
@@ -441,7 +481,13 @@ export default function Portfolio() {
                   <h3 className="text-accent font-medium text-sm md:text-base">{work.name}</h3>
                   <time className="text-xs text-muted-foreground">{work.year}</time>
                 </div>
-                <p className="text-xs md:text-sm text-foreground leading-relaxed">{work.description}</p>
+                {work.bullets && (
+                  <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                    {work.bullets.map((bullet, i) => (
+                      <li key={i}>{bullet}</li>
+                    ))}
+                  </ul>
+                )}
               </article>
             ))}
           </div>
