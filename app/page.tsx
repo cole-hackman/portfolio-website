@@ -2,7 +2,20 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useLayoutEffect, useRef } from "react"
+import { IntroSplash } from "@/components/ui/intro-splash"
+import { TypingAnimation } from "@/components/ui/typing-animation"
+import { applyTheme, getInitialDarkMode } from "@/lib/theme"
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Moon,
+  Sun,
+} from "lucide-react"
+
+const navIconClass =
+  "inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 
 const projects = [
   {
@@ -147,8 +160,8 @@ function LazySection({ children }: { children: React.ReactNode }) {
 }
 
 export default function Portfolio() {
+  const [showIntro, setShowIntro] = useState(true)
   const [showBackToTop, setShowBackToTop] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
   const [contactForm, setContactForm] = useState({
     name: "",
@@ -158,20 +171,17 @@ export default function Portfolio() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode)
 
   const [introRef, introInView] = useIntersectionObserver()
 
   const [educationRef, educationInView] = useIntersectionObserver()
   const [projectsRef, projectsInView] = useIntersectionObserver()
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark)
-
+  useLayoutEffect(() => {
+    const shouldBeDark = getInitialDarkMode()
     setIsDarkMode(shouldBeDark)
-    document.documentElement.classList.toggle("dark", shouldBeDark)
+    applyTheme(shouldBeDark)
   }, [])
 
   const toggleDarkMode = () => {
@@ -189,14 +199,6 @@ export default function Portfolio() {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-    setIsMobileMenuOpen(false)
-  }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -241,109 +243,54 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {showIntro && (
+        <IntroSplash onComplete={() => setShowIntro(false)} isDarkMode={isDarkMode} />
+      )}
+
       {/* Header */}
-      <header className="flex justify-between items-start p-4 md:p-6 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
+      <header className="sticky top-0 z-10 flex items-center justify-between bg-background/95 p-4 backdrop-blur-sm md:p-6">
         <div className="text-lg font-bold font-mono">CCH</div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6 text-sm items-center">
-          <button onClick={() => scrollToSection("projects")} className="hover:underline">
-            PROJECTS
-          </button>
-          <button onClick={() => scrollToSection("education")} className="hover:underline">
-            EDUCATION
-          </button>
-          <button onClick={() => setShowContactForm(true)} className="hover:underline">
-            CONTACT
+        <nav className="flex items-center gap-0.5 sm:gap-1" aria-label="Main navigation">
+          <button
+            type="button"
+            onClick={() => setShowContactForm(true)}
+            className={navIconClass}
+            aria-label="Contact"
+          >
+            <Mail className="size-4" strokeWidth={1.75} />
           </button>
           <a
             href="https://www.linkedin.com/in/colehackman/"
-            className="hover:underline"
             rel="noopener noreferrer"
             target="_blank"
+            className={navIconClass}
+            aria-label="LinkedIn"
           >
-            LINKEDIN
+            <Linkedin className="size-4" strokeWidth={1.75} />
           </a>
           <a
             href="https://github.com/cole-hackman/"
-            className="hover:underline"
             rel="noopener noreferrer"
             target="_blank"
+            className={navIconClass}
+            aria-label="GitHub"
           >
-            GITHUB
+            <Github className="size-4" strokeWidth={1.75} />
           </a>
           <button
+            type="button"
             onClick={toggleDarkMode}
-            className="p-2 hover:bg-muted rounded-md transition-colors"
+            className={navIconClass}
             aria-label="Toggle dark mode"
           >
             {isDarkMode ? (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
+              <Sun className="size-4" strokeWidth={1.75} />
             ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              </svg>
+              <Moon className="size-4" strokeWidth={1.75} />
             )}
           </button>
         </nav>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden p-2 text-sm"
-          aria-label="Toggle menu"
-          aria-expanded={isMobileMenuOpen}
-        >
-          {isMobileMenuOpen ? "CLOSE" : "MENU"}
-        </button>
-
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border md:hidden">
-            <nav className="flex flex-col gap-4 p-4 text-sm" role="navigation" aria-label="Mobile navigation">
-              <button onClick={() => scrollToSection("projects")} className="text-left hover:underline">
-                PROJECTS
-              </button>
-              <button onClick={() => scrollToSection("education")} className="text-left hover:underline">
-                EDUCATION
-              </button>
-              <button onClick={() => setShowContactForm(true)} className="text-left hover:underline">
-                CONTACT
-              </button>
-              <a
-                href="https://www.linkedin.com/in/colehackman/"
-                className="hover:underline"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                LINKEDIN
-              </a>
-              <a
-                href="https://github.com/cole-hackman/"
-                className="hover:underline"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                GITHUB
-              </a>
-              <button onClick={toggleDarkMode} className="flex items-center gap-2 text-left hover:underline">
-                {isDarkMode ? "LIGHT MODE" : "DARK MODE"}
-              </button>
-            </nav>
-          </div>
-        )}
       </header>
 
       {/* Main Content */}
@@ -355,7 +302,20 @@ export default function Portfolio() {
             className={`mb-12 transition-all duration-700 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
-            <h1 className="text-xl md:text-2xl font-bold mb-4">Hey, I'm Cole.</h1>
+            {showIntro ? (
+              <h1 className="text-xl md:text-2xl font-bold mb-4" aria-hidden="true">
+                <span className="invisible">Hey, I&apos;m Cole.</span>
+              </h1>
+            ) : (
+              <TypingAnimation
+                as="h1"
+                className="text-xl md:text-2xl font-bold mb-4"
+                startOnView={false}
+                typeSpeed={70}
+              >
+                Hey, I&apos;m Cole.
+              </TypingAnimation>
+            )}
             <p className="mb-2 text-sm md:text-base">
               I'm a CS student at{" "}
               <a
