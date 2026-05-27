@@ -5,13 +5,12 @@ import type React from "react"
 import { useState, useEffect, useLayoutEffect, useRef } from "react"
 import { IntroSplash } from "@/components/ui/intro-splash"
 import { TypingAnimation } from "@/components/ui/typing-animation"
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { applyTheme, getInitialDarkMode } from "@/lib/theme"
 import {
   Github,
   Linkedin,
   Mail,
-  Moon,
-  Sun,
 } from "lucide-react"
 
 const navIconClass =
@@ -184,13 +183,6 @@ export default function Portfolio() {
     applyTheme(shouldBeDark)
   }, [])
 
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode
-    setIsDarkMode(newDarkMode)
-    document.documentElement.classList.toggle("dark", newDarkMode)
-    localStorage.setItem("theme", newDarkMode ? "dark" : "light")
-  }
-
   useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 400)
@@ -278,18 +270,11 @@ export default function Portfolio() {
           >
             <Github className="size-4" strokeWidth={1.75} />
           </a>
-          <button
-            type="button"
-            onClick={toggleDarkMode}
+          <AnimatedThemeToggler
             className={navIconClass}
+            onThemeChange={setIsDarkMode}
             aria-label="Toggle dark mode"
-          >
-            {isDarkMode ? (
-              <Sun className="size-4" strokeWidth={1.75} />
-            ) : (
-              <Moon className="size-4" strokeWidth={1.75} />
-            )}
-          </button>
+          />
         </nav>
       </header>
 
