@@ -30,6 +30,11 @@ const projects = [
     url: "https://unfollowr.app",
   },
   {
+    name: "RushRank",
+    description:
+      "Rush management app for fraternity recruitment — live anonymous voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), RLS policies, and QR check-in. In pilot at Beta Theta Pi (Cal Poly SLO), expanding Fall 2026.",
+  },
+  {
     name: "AI Listing Generator",
     description:
       "GPT-5-powered tool for real estate professionals to generate listing descriptions in minutes. Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison. Built with React, TypeScript, and Supabase.",
@@ -43,11 +48,6 @@ const projects = [
     name: "Lake Washington Detailing Website",
     description:
       "Mobile detailing business site with Calendly scheduling and vehicle-based estimator that cut quoting time 87%.",
-  },
-  {
-    name: "RushRank",
-    description:
-      "Rush management app for fraternity recruitment — live anonymous voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), RLS policies, and QR check-in. In pilot at Beta Theta Pi (Cal Poly SLO), expanding Fall 2026.",
   },
 ]
 
@@ -71,16 +71,17 @@ const pastWork = [
 
 const workExperience = [
   {
-    year: "(June 2026 - Present)",
-    name: "Technical Operating Partner @ Redbrick Ventures",
+    year: "(Jan 2026 - Present)",
+    name: "Backend Software Developer @ PolyBuys (CodeBox Club)",
     bullets: [
-      "Provide hands-on technical support to portfolio startups, including code review, architecture and infrastructure recommendations, product development, and debugging.",
-      "Build internal tools and automations to streamline firm operations.",
-      "Help grow the community of student founders and builders.",
+      "Built backend authentication and authorization flows for campus-restricted marketplace.",
+      "Implemented listing-scoped messaging services with conversation creation and permission checks.",
+      "Collaborated using GitHub issues, PRs, unit tests, and CI.",
+      "Scaled to 250+ downloads since launching in May 2026.",
     ],
   },
   {
-    year: "(Sep 2025 - Present)",
+    year: "(Oct 2025 - Present)",
     name: "CS Lead @ AIEL (AI Ethics Lab)",
     bullets: [
       "Leading the computer science side of an interdisciplinary research lab.",
@@ -89,13 +90,12 @@ const workExperience = [
     ],
   },
   {
-    year: "(Jan 2026 - Present)",
-    name: "Backend Software Developer @ PolyBuys (CodeBox Club)",
+    year: "(June 2026 - Present)",
+    name: "Technical Operating Partner @ Redbrick Ventures",
     bullets: [
-      "Built backend authentication and authorization flows for campus-restricted marketplace.",
-      "Implemented listing-scoped messaging services with conversation creation and permission checks.",
-      "Collaborated using GitHub issues, PRs, unit tests, and CI.",
-      "Scaled to 250+ downloads since launching in May 2026.",
+      "Provide hands-on technical support to portfolio startups, including code review, architecture and infrastructure recommendations, product development, and debugging.",
+      "Build internal tools and automations to streamline firm operations.",
+      "Help grow the community of student founders and builders.",
     ],
   },
   {
@@ -470,16 +470,13 @@ export default function Portfolio() {
           <h2 className="text-base md:text-lg font-bold mb-4">TECHNICAL SKILLS:</h2>
           <div className="text-xs md:text-sm space-y-2">
             <p>
-              <strong>Languages:</strong> Python, Java, C, JavaScript/TypeScript
+              <strong>Languages:</strong> Python, Java, JavaScript/TypeScript, C, SQL
             </p>
             <p>
-              <strong>Backend & Systems:</strong> FastAPI, Node.js, Express, PostgreSQL, Prisma, WebSockets, REST APIs, OAuth2/PKCE
+              <strong>Backend & Security:</strong> Node.js, Express, Flask, FastAPI, REST APIs, WebSockets, PostgreSQL, Prisma, asyncpg, Supabase, OAuth2/PKCE, JWT/JWKS, AES-256-GCM
             </p>
             <p>
-              <strong>Frontend:</strong> React, Next.js, Vite, Tailwind CSS
-            </p>
-            <p>
-              <strong>Tools & AI:</strong> Git, GitHub, Supabase (Auth/RLS), Vercel, Render, Linear, OpenAI API, Google Gemini, Cursor
+              <strong>Frontend & Tools:</strong> Next.js, React, Tailwind CSS, Framer Motion, Chart.js, shadcn/ui, Vercel, Render, Git/GitHub, GitHub Actions, Linear, OpenAI API, Claude Code, OpenAI Codex, Cursor, Gemini CLI
             </p>
           </div>
         </section>
