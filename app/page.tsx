@@ -20,13 +20,13 @@ const projects = [
   {
     name: "SC Toolkit",
     description:
-      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. OAuth2 + PKCE with AES-256-GCM encryption. Scaled to 2K users with zero paid ads.",
+      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma. 2,200+ users, 360K+ tracks/month.",
     url: "https://soundcloudtoolkit.com",
   },
   {
     name: "unfollowr",
     description:
-      "Privacy-first Instagram analytics tool serving 1K+ users. Upload your data exports to see who unfollowed you — no login required. Opt-in Gemini AI classifies accounts and scores unfollow suggestions. 5.3K clicks in 3 months, ranks #2 on Google.",
+      "Local-first Instagram analytics tool (browser-side parsing) serving 1K+ users. Upload your data exports to see who unfollowed you — no login required. Opt-in Google Gemini AI classifies accounts server-side via Flask and scores unfollow suggestions. Ranks #2 on Google.",
     url: "https://unfollowr.app",
   },
   {
@@ -47,7 +47,7 @@ const projects = [
   {
     name: "RushRank",
     description:
-      "Rush management app for my fraternity — live anonymous voting with a swipe-based interface, real-time results via FastAPI + Supabase, dynamic QR code check-ins, and analytics dashboards",
+      "Rush management app for fraternity recruitment — live anonymous voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), RLS policies, and QR check-in. In pilot at Beta Theta Pi (Cal Poly SLO), expanding Fall 2026.",
   },
 ]
 
@@ -71,6 +71,15 @@ const pastWork = [
 
 const workExperience = [
   {
+    year: "(June 2026 - Present)",
+    name: "Technical Operating Partner @ Redbrick Ventures",
+    bullets: [
+      "Provide hands-on technical support to portfolio startups, including code review, architecture and infrastructure recommendations, product development, and debugging.",
+      "Build internal tools and automations to streamline firm operations.",
+      "Help grow the community of student founders and builders.",
+    ],
+  },
+  {
     year: "(Sep 2025 - Present)",
     name: "CS Lead @ AIEL (AI Ethics Lab)",
     bullets: [
@@ -86,6 +95,7 @@ const workExperience = [
       "Built backend authentication and authorization flows for campus-restricted marketplace.",
       "Implemented listing-scoped messaging services with conversation creation and permission checks.",
       "Collaborated using GitHub issues, PRs, unit tests, and CI.",
+      "Scaled to 250+ downloads since launching in May 2026.",
     ],
   },
   {
@@ -100,14 +110,20 @@ const workExperience = [
 
 const education = [
   {
-    year: "(2024 - 2027)",
+    year: "(2024 - 2028)",
     name: "Cal Poly SLO",
     description: "B.S. in Computer Science — GPA: 3.884",
     bullets: [
       "Dean's List every quarter",
       "Creative Ambassador for CapCut",
       "Ambassador for Lovable",
+      "CS Lead at the AI Ethics Lab (AIEL)",
     ],
+    coursework: {
+      completed:
+        "Data Structures · Object-Oriented Programming & Design · Design & Analysis of Algorithms · Systems Programming · Computer Organization · Discrete Structures · Statistical Methods for Engineers · Linear Analysis · Calculus II/III · Logic & Argumentative Writing",
+      inProgress: "Computer Security · Operating Systems · Programming Languages",
+    },
   },
   {
     year: "(2020 - 2024)",
@@ -344,6 +360,17 @@ export default function Portfolio() {
                         <li key={i}>{bullet}</li>
                       ))}
                     </ul>
+                  )}
+                  {"coursework" in edu && edu.coursework && (
+                    <div className="mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                      <p className="font-bold">RELEVANT COURSEWORK:</p>
+                      <p>
+                        <strong>Completed:</strong> {edu.coursework.completed}
+                      </p>
+                      <p>
+                        <strong>In Progress:</strong> {edu.coursework.inProgress}
+                      </p>
+                    </div>
                   )}
                 </article>
               ))}

@@ -5,7 +5,7 @@ Personal portfolio website for Cole Hackman — CS student at Cal Poly SLO.
 [![Standard Readme compliant](https://img.shields.io/badge/readme-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 [![Next.js](https://img.shields.io/badge/Next.js-14-000000.svg)](https://nextjs.org/)
-[![Deployed on Vercel](https://img.shields.io/badge/deployed-Vercel-black.svg)](https://colehackman.dev)
+[![Deployed on Vercel](https://img.shields.io/badge/deployed-Vercel-black.svg)](https://colehackman.com)
 
 **Live site:** [colehackman.com](https://colehackman.com)
 
@@ -25,7 +25,7 @@ Traditional static resumes can be difficult to quickly parse and don't effective
 
 - **Frontend Framework:** Next.js 14, React 18
 - **Styling:** Tailwind CSS 4
-- **UI Components:** Radix UI primitives, Lucide React
+- **UI Components:** Lucide React
 - **Fonts:** Inter, JetBrains Mono (via Google Fonts)
 - **Deployment & Analytics:** Vercel
 
