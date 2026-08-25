@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState, useEffect, useLayoutEffect, useRef } from "react"
-import { IntroSplash } from "@/components/ui/intro-splash"
 import { TypingAnimation } from "@/components/ui/typing-animation"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { applyTheme, getInitialDarkMode } from "@/lib/theme"
@@ -20,13 +19,13 @@ const projects = [
   {
     name: "SC Toolkit",
     description:
-      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma. 2,200+ users, 360K+ tracks/month.",
+      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma. 3,570 users, 566K tracks last month.",
     url: "https://soundcloudtoolkit.com",
   },
   {
     name: "unfollowr",
     description:
-      "Local-first Instagram analytics tool (browser-side parsing) serving 1K+ users. Upload your data exports to see who unfollowed you — no login required. Opt-in Google Gemini AI classifies accounts server-side via Flask and scores unfollow suggestions. Ranks #2 on Google.",
+      "Local-first Instagram analytics tool (browser-side parsing) serving 2K monthly users. Upload your data exports to see who unfollowed you — no login required. Opt-in Google Gemini AI classifies accounts server-side via Flask and scores unfollow suggestions. Ranks #2 on Google.",
     url: "https://unfollowr.app",
   },
   {
@@ -53,15 +52,24 @@ const projects = [
 
 const pastWork = [
   {
-    year: "(Aug 2025 - Dec 2025)",
+    year: "(Jan 2026 - Jun 2026)",
+    name: "CS Lead @ AIEL (AI Ethics Lab)",
+    bullets: [
+      "Led the computer science side of an interdisciplinary research lab.",
+      "Co-authored a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
+      "Work included faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
+    ],
+  },
+  {
+    year: "(Aug 2025 - Nov 2025)",
     name: "AI & Software Engineering Intern @ Elite Bricks",
     bullets: [
-      "Engineered Python Discord bot automating promo code distribution for 700+ clients.",
+      "Engineered a Python Discord bot to automate internal distribution processes.",
       "Built internal automation workflows using n8n/Make and external APIs.",
     ],
   },
   {
-    year: "(2020 - 2025)",
+    year: "(Jun 2019 - 2025)",
     name: "Founder @ Lake Washington Detailing",
     bullets: [
       "Car detailing business serving 200+ clients.",
@@ -77,16 +85,7 @@ const workExperience = [
       "Built backend authentication and authorization flows for campus-restricted marketplace.",
       "Implemented listing-scoped messaging services with conversation creation and permission checks.",
       "Collaborated using GitHub issues, PRs, unit tests, and CI.",
-      "Scaled to 250+ downloads since launching in May 2026.",
-    ],
-  },
-  {
-    year: "(Oct 2025 - Present)",
-    name: "CS Lead @ AIEL (AI Ethics Lab)",
-    bullets: [
-      "Leading the computer science side of an interdisciplinary research lab.",
-      "Co-authoring a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
-      "Work includes faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
+      "Scaled to 250+ downloads and signups in the first month after launching in May 2026.",
     ],
   },
   {
@@ -110,7 +109,7 @@ const workExperience = [
 
 const education = [
   {
-    year: "(2024 - 2028)",
+    year: "(2024 - May 2028)",
     name: "Cal Poly SLO",
     description: "B.S. in Computer Science — GPA: 3.884",
     bullets: [
@@ -153,16 +152,22 @@ function useIntersectionObserver(options = {}) {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    if (!ref.current) return
+
+    // Once a section has entered the viewport, keep it visible. Without this,
+    // sections re-toggle opacity every time they cross the viewport edge,
+    // causing content to fade out/in repeatedly while scrolling.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsIntersecting(entry.isIntersecting)
+        if (entry.isIntersecting) {
+          setIsIntersecting(true)
+          observer.disconnect()
+        }
       },
       { threshold: 0.1, ...options },
     )
 
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
+    observer.observe(ref.current)
 
     return () => observer.disconnect()
   }, [])
@@ -175,7 +180,6 @@ function LazySection({ children }: { children: React.ReactNode }) {
 }
 
 export default function Portfolio() {
-  const [showIntro, setShowIntro] = useState(true)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
   const [contactForm, setContactForm] = useState({
@@ -186,7 +190,6 @@ export default function Portfolio() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode)
 
   const [introRef, introInView] = useIntersectionObserver()
 
@@ -194,9 +197,7 @@ export default function Portfolio() {
   const [projectsRef, projectsInView] = useIntersectionObserver()
 
   useLayoutEffect(() => {
-    const shouldBeDark = getInitialDarkMode()
-    setIsDarkMode(shouldBeDark)
-    applyTheme(shouldBeDark)
+    applyTheme(getInitialDarkMode())
   }, [])
 
   useEffect(() => {
@@ -251,10 +252,6 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {showIntro && (
-        <IntroSplash onComplete={() => setShowIntro(false)} isDarkMode={isDarkMode} />
-      )}
-
       {/* Header */}
       <header className="sticky top-0 z-10 flex items-center justify-between bg-background/95 p-4 backdrop-blur-sm md:p-6">
         <div className="text-lg font-bold font-mono">CCH</div>
@@ -288,7 +285,6 @@ export default function Portfolio() {
           </a>
           <AnimatedThemeToggler
             className={navIconClass}
-            onThemeChange={setIsDarkMode}
             aria-label="Toggle dark mode"
           />
         </nav>
@@ -303,20 +299,14 @@ export default function Portfolio() {
             className={`mb-12 transition-all duration-700 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
-            {showIntro ? (
-              <h1 className="text-xl md:text-2xl font-bold mb-4" aria-hidden="true">
-                <span className="invisible">Hey, I&apos;m Cole.</span>
-              </h1>
-            ) : (
-              <TypingAnimation
-                as="h1"
-                className="text-xl md:text-2xl font-bold mb-4"
-                startOnView={false}
-                typeSpeed={70}
-              >
-                Hey, I&apos;m Cole.
-              </TypingAnimation>
-            )}
+            <TypingAnimation
+              as="h1"
+              className="text-xl md:text-2xl font-bold mb-4"
+              startOnView={false}
+              typeSpeed={70}
+            >
+              Hey, I&apos;m Cole.
+            </TypingAnimation>
             <p className="mb-2 text-sm md:text-base">
               I'm a CS student at{" "}
               <a
@@ -386,7 +376,8 @@ export default function Portfolio() {
             className={`mb-12 transition-all duration-700 delay-300 ${projectsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
-            <h2 className="text-base md:text-lg font-bold mb-6">SOME PROJECTS I'M WORKING ON:</h2>
+            <h2 className="text-base md:text-lg font-bold mb-2">SOME PROJECTS I'M WORKING ON:</h2>
+            <p className="text-xs text-muted-foreground mb-6 italic">Metrics as of August 2026.</p>
             <div className="space-y-6">
               {projects.map((project, index) => (
                 <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
@@ -529,7 +520,7 @@ export default function Portfolio() {
 
       {/* Footer */}
       <footer className="flex flex-col sm:flex-row justify-between items-center px-4 md:px-6 py-4 text-xs text-muted-foreground gap-2">
-        <span>© 2025 COLE HACKMAN</span>
+        <span>© 2026 COLE HACKMAN</span>
         <span>BUILT WITH NEXT.JS</span>
       </footer>
 
