@@ -20,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Cole Hackman - CS Student & Developer Portfolio",
   description:
-    "Personal portfolio of Cole Hackman, a Computer Science student at Cal Poly SLO specializing in AI automation, full-stack development, and entrepreneurship. Previously built $150K+ businesses.",
+    "Personal portfolio of Cole Hackman, a Computer Science student at Cal Poly SLO specializing in AI automation, full-stack development, and entrepreneurship. Previously built $300K+ businesses.",
   keywords: [
     "Cole Hackman",
     "Computer Science",
