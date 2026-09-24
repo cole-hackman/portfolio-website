@@ -68,11 +68,25 @@ const pastWork = [
     ],
   },
   {
+    year: "(Apr 2026 - Jul 2026)",
+    name: "Campus Ambassador @ Lovable",
+    bullets: [
+      "Represented Lovable at Cal Poly, organizing events and building student communities to educate and inspire new builders.",
+    ],
+  },
+  {
     year: "(Jan 2026 - Jun 2026)",
     name: "Full Stack Software Engineer @ PolyBuys (CodeBox Club)",
     bullets: [
       "Built buyer-to-seller messaging end to end, from the Postgres access model to the React thread UI, scoping conversations to a single listing so neither party could open threads they were not part of.",
       "Restricted marketplace access to verified Cal Poly accounts with role-based permissions across a TypeScript monorepo, supporting a launch that reached 250+ downloads and signups in its first month.",
+    ],
+  },
+  {
+    year: "(Sep 2025 - Jan 2026)",
+    name: "Campus Partner @ Perplexity",
+    bullets: [
+      "Promoted the Comet browser and Perplexity AI across Cal Poly through student communities, events, and peer engagement.",
     ],
   },
   {
@@ -112,10 +126,6 @@ const workExperience = [
     ],
   },
   {
-    year: "(June 2026 - Present)",
-    name: "Technical Operating Partner @ Redbrick Ventures",
-  },
-  {
     year: "(Mar 2020 - Present)",
     name: "Founder & Operator @ Cole Soles",
     bullets: [
@@ -133,9 +143,7 @@ const education = [
     bullets: [
       "Dean's List every quarter",
       "Y Combinator Startup School 2026",
-      "Campus Partner for Perplexity AI",
       "Creative Ambassador for CapCut",
-      "Ambassador for Lovable",
       "CS Lead at the AI Ethics Lab (AIEL)",
     ],
     coursework: {
