@@ -17,47 +17,62 @@ const navIconClass =
 
 const projects = [
   {
-    name: "SC Toolkit",
+    name: "Track Toolkit",
     description:
-      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, dead track detection. Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma. 3,570 users, 566K tracks last month.",
-    url: "https://soundcloudtoolkit.com",
+      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, repost management, dead track detection. Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma. 4,149 users, 2.5M tracks processed.",
+    url: "https://tracktoolkit.com",
   },
   {
     name: "unfollowr",
     description:
-      "Local-first Instagram analytics tool (browser-side parsing) serving 2K monthly users. Upload your data exports to see who unfollowed you — no login required. Opt-in Google Gemini AI classifies accounts server-side via Flask and scores unfollow suggestions. Ranks #2 on Google.",
+      "Local-first Instagram analytics tool (browser-side parsing) serving ~2,000 users. Upload your data exports to see who unfollowed you — no login required. Non-followers are segmented by a client-side heuristic; only anonymous usage analytics leave the browser.",
     url: "https://unfollowr.app",
   },
   {
     name: "RushRank",
     description:
-      "Rush management app for fraternity recruitment — live anonymous voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), RLS policies, and QR check-in. In pilot at Beta Theta Pi (Cal Poly SLO), expanding Fall 2026.",
+      "Rush management app for fraternity recruitment — live voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), and QR check-in. Beta-tested with an independent Interfraternity Council near Chico State for Fall 2026 rush.",
+  },
+  {
+    name: "decks",
+    description:
+      "Local-first desktop app for Rekordbox DJ libraries — reads the encrypted library directly and gives DJs the bulk edits and duplicate detection the official software doesn't expose. Rust, Tauri, TypeScript, SQLCipher. In development.",
+    url: "https://github.com/cole-hackman/decks",
   },
   {
     name: "AI Listing Generator",
     description:
-      "GPT-5-powered tool for real estate professionals to generate listing descriptions in minutes. Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison. Built with React, TypeScript, and Supabase.",
+      "OpenAI-powered tool for real estate professionals to generate listing descriptions in minutes. Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison. Built with React, TypeScript, and Supabase.",
   },
   {
     name: "PolyEats",
     description:
-      "Meal planning and macro tracking app for Cal Poly students, built around campus dining menus. AI-generated meal plans via Supabase Edge Functions + OpenAI, with a local planner fallback. Budget optimizer and progress tracking. Currently in development.",
+      "Nutrition tracking and meal planning for Cal Poly students, built around campus dining menus pulled from three dining-service APIs into one schema. Native SwiftUI iOS app and React web client on one Supabase backend; AI meal plans via Supabase Edge Functions and OpenAI with a local fallback; budget and progress tracking. 1.0.0 TestFlight build in preparation.",
   },
   {
     name: "Lake Washington Detailing Website",
     description:
-      "Mobile detailing business site with Calendly scheduling and vehicle-based estimator that cut quoting time 87%.",
+      "Mobile detailing business site with Calendly scheduling and vehicle-based estimator.",
   },
 ]
 
 const pastWork = [
   {
-    year: "(Jan 2026 - Jun 2026)",
-    name: "CS Lead @ AIEL (AI Ethics Lab)",
+    year: "(Jun 2026 - Aug 2026)",
+    name: "Product Engineering Intern @ Keystone Strategy, Seattle",
     bullets: [
-      "Led the computer science side of an interdisciplinary research lab.",
-      "Co-authored a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
-      "Work included faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
+      "Interviewed consultants across healthcare, technology, and business development to find where manual relationship tracking cost the most time, surfacing that only 39 of 96 tracked contacts had a recorded last touch.",
+      "Built the Python platform as its sole engineer, turning law-firm news and email digests into routed relationship signals that matched 86.9% of 465 signals to the firm or person who owned them.",
+      "Raised usable article text from 19% to 73% across 86 items with a full-body top-up stage, converting snippets extraction could not parse into content that yielded named attorneys.",
+      "Reframed the brief from lead generation to relationship intelligence after finding existing tooling already served the original framing, then recommended a three-use-case MVP with costed options.",
+    ],
+  },
+  {
+    year: "(Jan 2026 - Jun 2026)",
+    name: "Full Stack Software Engineer @ PolyBuys (CodeBox Club)",
+    bullets: [
+      "Built buyer-to-seller messaging end to end, from the Postgres access model to the React thread UI, scoping conversations to a single listing so neither party could open threads they were not part of.",
+      "Restricted marketplace access to verified Cal Poly accounts with role-based permissions across a TypeScript monorepo, supporting a launch that reached 250+ downloads and signups in its first month.",
     ],
   },
   {
@@ -72,36 +87,39 @@ const pastWork = [
     year: "(Jun 2019 - 2025)",
     name: "Founder @ Lake Washington Detailing",
     bullets: [
-      "Car detailing business serving 200+ clients.",
+      "Founded and ran a mobile car-detailing business in the Seattle area, growing to 200+ clients through flyers, customer referrals, and neighborhood marketing on Nextdoor and Facebook.",
     ],
   },
 ]
 
 const workExperience = [
   {
-    year: "(Jan 2026 - Present)",
-    name: "Backend Software Developer @ PolyBuys (CodeBox Club)",
+    year: "(Aug 2026 - Present)",
+    name: "Software Engineer, Student Volunteer @ AIS4R (Cal Poly Computer Science Department)",
     bullets: [
-      "Built backend authentication and authorization flows for campus-restricted marketplace.",
-      "Implemented listing-scoped messaging services with conversation creation and permission checks.",
-      "Collaborated using GitHub issues, PRs, unit tests, and CI.",
-      "Scaled to 250+ downloads and signups in the first month after launching in May 2026.",
+      "Built incident-level access control for IntelliSAR, a search-and-rescue coordination dashboard, so coordinators and responders can read only the operations they are assigned to.",
+      "Remediated authorization and IDOR vulnerabilities across a Next.js and Firebase application, enforcing incident isolation with Firebase Authentication and Firestore Security Rules.",
+    ],
+  },
+  {
+    year: "(Jan 2026 - Present)",
+    name: "Computer Science Lead @ AI Ethics Lab (AIEL), Cal Poly",
+    bullets: [
+      "Lead the computer science side of an interdisciplinary research lab.",
+      "Co-authored a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
+      "Conducted 12 of the team's 20 faculty interviews.",
+      "Work included faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
     ],
   },
   {
     year: "(June 2026 - Present)",
     name: "Technical Operating Partner @ Redbrick Ventures",
-    bullets: [
-      "Provide hands-on technical support to portfolio startups, including code review, architecture and infrastructure recommendations, product development, and debugging.",
-      "Build internal tools and automations to streamline firm operations.",
-      "Help grow the community of student founders and builders.",
-    ],
   },
   {
     year: "(Mar 2020 - Present)",
     name: "Founder & Operator @ Cole Soles",
     bullets: [
-      "Founded and scaled e-commerce business to $300K+ in sales across 1,000+ transactions.",
+      "Founded and scaled e-commerce business to $300K+ in revenue across 1,000+ transactions.",
       "Built inventory and profitability tracking systems to manage stock, margin, and cash flow.",
     ],
   },
@@ -109,19 +127,20 @@ const workExperience = [
 
 const education = [
   {
-    year: "(2024 - May 2028)",
+    year: "(Sep 2024 - May 2028)",
     name: "Cal Poly SLO",
-    description: "B.S. in Computer Science — GPA: 3.884",
+    description: "B.S. in Computer Science, AI and Machine Learning Concentration — GPA: 3.85",
     bullets: [
       "Dean's List every quarter",
+      "Y Combinator Startup School 2026",
+      "Campus Partner for Perplexity AI",
       "Creative Ambassador for CapCut",
       "Ambassador for Lovable",
       "CS Lead at the AI Ethics Lab (AIEL)",
     ],
     coursework: {
       completed:
-        "Data Structures · Object-Oriented Programming & Design · Design & Analysis of Algorithms · Systems Programming · Computer Organization · Discrete Structures · Statistical Methods for Engineers · Linear Analysis · Calculus II/III · Logic & Argumentative Writing",
-      inProgress: "Computer Security · Operating Systems · Programming Languages",
+        "Data Structures · Object-Oriented Programming & Design · Design & Analysis of Algorithms · Systems Programming · Computer Organization · Operating Systems · Computer Security · Programming Languages · Discrete Structures · Statistical Methods for Engineers · Linear Analysis · Calculus II/III · Logic & Argumentative Writing",
     },
   },
   {
@@ -354,12 +373,7 @@ export default function Portfolio() {
                   {"coursework" in edu && edu.coursework && (
                     <div className="mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
                       <p className="font-bold">RELEVANT COURSEWORK:</p>
-                      <p>
-                        <strong>Completed:</strong> {edu.coursework.completed}
-                      </p>
-                      <p>
-                        <strong>In Progress:</strong> {edu.coursework.inProgress}
-                      </p>
+                      <p>{edu.coursework.completed}</p>
                     </div>
                   )}
                 </article>
@@ -377,7 +391,7 @@ export default function Portfolio() {
               }`}
           >
             <h2 className="text-base md:text-lg font-bold mb-2">SOME PROJECTS I'M WORKING ON:</h2>
-            <p className="text-xs text-muted-foreground mb-6 italic">Metrics as of August 2026.</p>
+            <p className="text-xs text-muted-foreground mb-6 italic">Metrics as of September 2026.</p>
             <div className="space-y-6">
               {projects.map((project, index) => (
                 <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
@@ -461,13 +475,22 @@ export default function Portfolio() {
           <h2 className="text-base md:text-lg font-bold mb-4">TECHNICAL SKILLS:</h2>
           <div className="text-xs md:text-sm space-y-2">
             <p>
-              <strong>Languages:</strong> Python, Java, JavaScript/TypeScript, C, SQL
+              <strong>Languages:</strong> Python, TypeScript/JavaScript, Swift, Java, Rust, C, SQL
             </p>
             <p>
-              <strong>Backend & Security:</strong> Node.js, Express, Flask, FastAPI, REST APIs, WebSockets, PostgreSQL, Prisma, asyncpg, Supabase, OAuth2/PKCE, JWT/JWKS, AES-256-GCM
+              <strong>Backend & Security:</strong> Node.js, Express, FastAPI, Deno, REST APIs, WebSockets, PostgreSQL, Supabase, Firebase/Firestore, Prisma, asyncpg, SQLCipher, Snowflake, OAuth2/PKCE, JWT/JWKS, AES-256-GCM, row-level security
             </p>
             <p>
-              <strong>Frontend & Tools:</strong> Next.js, React, Tailwind CSS, Framer Motion, Chart.js, shadcn/ui, Vercel, Render, Git/GitHub, GitHub Actions, Linear, OpenAI API, Claude Code, OpenAI Codex, Cursor, Gemini CLI
+              <strong>Frontend & Mobile:</strong> SwiftUI, Next.js, React, Tauri, Tailwind CSS, shadcn/ui
+            </p>
+            <p>
+              <strong>Infrastructure & Testing:</strong> Linux/Unix, Azure, Docker, GitHub Actions CI, AWS Bedrock, OpenAI API, Model Context Protocol, Playwright, pytest, Vitest, XCTest, Git
+            </p>
+            <p>
+              <strong>Product:</strong> product requirements, user research, stakeholder interviews, competitive analysis, prioritization, roadmapping, sprint planning, KPI tracking, SEO, product analytics (PostHog), Linear
+            </p>
+            <p>
+              <strong>AI Tooling:</strong> Claude Code, Cursor, OpenAI Codex, Gemini CLI
             </p>
           </div>
         </section>
