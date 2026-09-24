@@ -31,7 +31,7 @@ const projects = [
   {
     name: "RushRank",
     description:
-      "Rush management app for fraternity recruitment — live voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), and QR check-in. Beta-tested with an independent Interfraternity Council near Chico State for Fall 2026 rush.",
+      "Rush management app for fraternity recruitment — live voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), and QR check-in. Piloted with a six-chapter independent Interfraternity Council near Chico State for Fall 2026 rush.",
   },
   {
     name: "decks",
@@ -64,7 +64,7 @@ const pastWork = [
       "Interviewed consultants across healthcare, technology, and business development to find where manual relationship tracking cost the most time, surfacing that only 39 of 96 tracked contacts had a recorded last touch.",
       "Built the Python platform as its sole engineer, turning law-firm news and email digests into routed relationship signals that matched 86.9% of 465 signals to the firm or person who owned them.",
       "Raised usable article text from 19% to 73% across 86 items with a full-body top-up stage, converting snippets extraction could not parse into content that yielded named attorneys.",
-      "Reframed the brief from lead generation to relationship intelligence after finding existing tooling already served the original framing, then recommended a three-use-case MVP with costed options.",
+      "Reframed the brief from lead generation to relationship intelligence after finding existing tooling already served the original framing, then ranked 12 use cases on a six-dimension matrix to recommend a three-use-case MVP.",
     ],
   },
   {
@@ -120,7 +120,7 @@ const workExperience = [
     name: "Computer Science Lead @ AI Ethics Lab (AIEL), Cal Poly",
     bullets: [
       "Lead the computer science side of an interdisciplinary research lab.",
-      "Co-authored a report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
+      "Co-authored a State of AI report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
       "Conducted 12 of the team's 20 faculty interviews.",
       "Work included faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
     ],
@@ -139,7 +139,7 @@ const education = [
   {
     year: "(Sep 2024 - May 2028)",
     name: "Cal Poly SLO",
-    description: "B.S. in Computer Science, AI and Machine Learning Concentration — GPA: 3.85",
+    description: "B.S. in Computer Science, AI and Machine Learning Concentration — GPA: 3.865",
     bullets: [
       "Dean's List every quarter",
       "Y Combinator Startup School 2026",
@@ -495,7 +495,7 @@ export default function Portfolio() {
               <strong>Infrastructure & Testing:</strong> Linux/Unix, Azure, Docker, GitHub Actions CI, AWS Bedrock, OpenAI API, Model Context Protocol, Playwright, pytest, Vitest, XCTest, Git
             </p>
             <p>
-              <strong>Product:</strong> product requirements, user research, stakeholder interviews, competitive analysis, prioritization, roadmapping, sprint planning, KPI tracking, SEO, product analytics (PostHog), Linear
+              <strong>Product:</strong> product requirements, user research, stakeholder interviews, competitive analysis, prioritization, sprint planning, KPI tracking, SEO, product analytics (PostHog), Linear
             </p>
             <p>
               <strong>AI Tooling:</strong> Claude Code, Cursor, OpenAI Codex, Gemini CLI
