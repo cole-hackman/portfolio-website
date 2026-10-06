@@ -7,6 +7,7 @@ import { TypingAnimation } from "@/components/ui/typing-animation"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { applyTheme, getInitialDarkMode } from "@/lib/theme"
 import {
+  ChevronRight,
   Github,
   Linkedin,
   Mail,
@@ -18,41 +19,60 @@ const navIconClass =
 const projects = [
   {
     name: "Track Toolkit",
-    description:
-      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, repost management, dead track detection. Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma. 4,149 users, 2.5M tracks processed.",
+    bullets: [
+      "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, repost management, dead track detection.",
+      "Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma.",
+      "4,149 users, 2.5M tracks processed.",
+    ],
     url: "https://tracktoolkit.com",
   },
   {
     name: "unfollowr",
-    description:
-      "Local-first Instagram analytics tool (browser-side parsing) serving ~2,000 users. Upload your data exports to see who unfollowed you — no login required. Non-followers are segmented by a client-side heuristic; only anonymous usage analytics leave the browser.",
+    bullets: [
+      "Local-first Instagram analytics tool (browser-side parsing) serving ~2,000 users.",
+      "Upload your data exports to see who unfollowed you — no login required.",
+      "Non-followers are segmented by a client-side heuristic; only anonymous usage analytics leave the browser.",
+    ],
     url: "https://unfollowr.app",
   },
   {
     name: "RushRank",
-    description:
-      "Rush management app for fraternity recruitment — live voting with a swipe-based interface, real-time results over custom FastAPI WebSockets. Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), and QR check-in. Piloted with a six-chapter independent Interfraternity Council near Chico State for Fall 2026 rush.",
+    bullets: [
+      "Rush management app for fraternity recruitment — live voting with a swipe-based interface, real-time results over custom FastAPI WebSockets.",
+      "Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), and QR check-in.",
+      "Piloted with a six-chapter independent Interfraternity Council near Chico State for Fall 2026 rush.",
+    ],
   },
   {
     name: "decks",
-    description:
-      "Local-first desktop app for Rekordbox DJ libraries — reads the encrypted library directly and gives DJs the bulk edits and duplicate detection the official software doesn't expose. Rust, Tauri, TypeScript, SQLCipher. In development.",
+    bullets: [
+      "Local-first desktop app for Rekordbox DJ libraries — reads the encrypted library directly and gives DJs the bulk edits and duplicate detection the official software doesn't expose.",
+      "Rust, Tauri, TypeScript, SQLCipher.",
+      "In development.",
+    ],
     url: "https://github.com/cole-hackman/decks",
   },
   {
     name: "AI Listing Generator",
-    description:
-      "OpenAI-powered tool for real estate professionals to generate listing descriptions in minutes. Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison. Built with React, TypeScript, and Supabase.",
+    bullets: [
+      "OpenAI-powered tool for real estate professionals to generate listing descriptions in minutes.",
+      "Multi-step form with Zod validation, Supabase Auth with domain-restricted RLS, generation history, and AI output comparison.",
+      "Built with React, TypeScript, and Supabase.",
+    ],
   },
   {
     name: "PolyEats",
-    description:
-      "Nutrition tracking and meal planning for Cal Poly students, built around campus dining menus pulled from three dining-service APIs into one schema. Native SwiftUI iOS app and React web client on one Supabase backend; AI meal plans via Supabase Edge Functions and OpenAI with a local fallback; budget and progress tracking. 1.0.0 TestFlight build in preparation.",
+    bullets: [
+      "Nutrition tracking and meal planning for Cal Poly students, built around campus dining menus pulled from three dining-service APIs into one schema.",
+      "Native SwiftUI iOS app and React web client on one Supabase backend; AI meal plans via Supabase Edge Functions and OpenAI with a local fallback; budget and progress tracking.",
+      "1.0.0 TestFlight build in preparation.",
+    ],
   },
   {
     name: "Lake Washington Detailing Website",
-    description:
+    bullets: [
       "Mobile detailing business site with Calendly scheduling and vehicle-based estimator.",
+    ],
   },
 ]
 
@@ -117,11 +137,10 @@ const workExperience = [
   },
   {
     year: "(Jan 2026 - Present)",
-    name: "Computer Science Lead @ AI Ethics Lab (AIEL), Cal Poly",
+    name: "Computer Science Officer @ AI Ethics Lab (AIEL), Cal Poly",
     bullets: [
       "Lead the computer science side of an interdisciplinary research lab.",
       "Co-authored a State of AI report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
-      "Conducted 12 of the team's 20 faculty interviews.",
       "Work included faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
     ],
   },
@@ -139,27 +158,87 @@ const education = [
   {
     year: "(Sep 2024 - May 2028)",
     name: "Cal Poly SLO",
-    description: "B.S. in Computer Science, AI and Machine Learning Concentration — GPA: 3.865",
-    bullets: [
+    degree: "B.S. in Computer Science",
+    description: "AI and Machine Learning Concentration",
+    degreeBullets: ["GPA: 3.865"],
+    activitiesLabel: "Activities and Involvement",
+    activities: [
       "Dean's List every quarter",
       "Y Combinator Startup School 2026",
       "Creative Ambassador for CapCut",
-      "CS Lead at the AI Ethics Lab (AIEL)",
+      "CS Officer at the AI Ethics Lab (AIEL)",
     ],
-    coursework: {
-      completed:
-        "Data Structures · Object-Oriented Programming & Design · Design & Analysis of Algorithms · Systems Programming · Computer Organization · Operating Systems · Computer Security · Programming Languages · Discrete Structures · Statistical Methods for Engineers · Linear Analysis · Calculus II/III · Logic & Argumentative Writing",
-    },
+    coursework: [
+      "Data Structures",
+      "Object-Oriented Programming & Design",
+      "Design & Analysis of Algorithms",
+      "Systems Programming",
+      "Computer Organization",
+      "Operating Systems",
+      "Computer Security",
+      "Programming Languages",
+      "Discrete Structures",
+      "Statistical Methods for Engineers",
+      "Linear Analysis",
+      "Calculus II/III",
+      "Logic & Argumentative Writing",
+    ],
   },
   {
     year: "(2020 - 2024)",
     name: "Seattle Preparatory School",
     description: "High School Diploma",
-    bullets: [
+    activitiesLabel: "Activities & Involvement",
+    activities: [
       "Panther Journalism Online Editor",
       "Business Club Executive",
       "Kairos Team Leader",
       "NHS Master Tutor",
+    ],
+  },
+]
+
+const skills = [
+  { label: "Languages", items: ["Python", "TypeScript/JavaScript", "Swift", "Java", "Rust", "C", "SQL"] },
+  { label: "Frontend & Mobile", items: ["SwiftUI", "Next.js", "React", "Tauri", "Tailwind CSS", "shadcn/ui"] },
+  {
+    label: "Backend & Data",
+    items: [
+      "Node.js",
+      "Express",
+      "FastAPI",
+      "Deno",
+      "REST APIs",
+      "WebSockets",
+      "PostgreSQL",
+      "Supabase",
+      "Firebase/Firestore",
+      "Prisma",
+      "asyncpg",
+      "SQLCipher",
+      "Snowflake",
+    ],
+  },
+  { label: "Security & Auth", items: ["OAuth2/PKCE", "JWT/JWKS", "AES-256-GCM", "Row-level security"] },
+  { label: "Infrastructure", items: ["Linux/Unix", "Azure", "Docker", "GitHub Actions CI", "Git"] },
+  { label: "Testing", items: ["Playwright", "pytest", "Vitest", "XCTest"] },
+  {
+    label: "AI",
+    items: ["AWS Bedrock", "OpenAI API", "Model Context Protocol", "Claude Code", "Cursor", "OpenAI Codex", "Gemini CLI"],
+  },
+  {
+    label: "Product",
+    items: [
+      "Product requirements",
+      "User research",
+      "Stakeholder interviews",
+      "Competitive analysis",
+      "Prioritization",
+      "Sprint planning",
+      "KPI tracking",
+      "SEO",
+      "PostHog",
+      "Linear",
     ],
   },
 ]
@@ -370,19 +449,44 @@ export default function Portfolio() {
                     <h3 className="text-accent font-medium text-sm md:text-base">{edu.name}</h3>
                     <time className="text-xs text-muted-foreground">{edu.year}</time>
                   </div>
-                  {edu.description && <p className="text-xs md:text-sm text-foreground leading-relaxed">{edu.description}</p>}
-                  {edu.bullets && (
-                    <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
-                      {edu.bullets.map((bullet, i) => (
+                  <p className="text-xs md:text-sm text-foreground leading-relaxed">
+                    {"degree" in edu && edu.degree ? (
+                      <>
+                        <strong className="font-bold">{edu.degree}</strong>, {edu.description}
+                      </>
+                    ) : (
+                      edu.description
+                    )}
+                  </p>
+                  {"degreeBullets" in edu && edu.degreeBullets && (
+                    <ul className="list-disc list-outside ml-4 mt-1 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                      {edu.degreeBullets.map((bullet, i) => (
                         <li key={i}>{bullet}</li>
                       ))}
                     </ul>
                   )}
-                  {"coursework" in edu && edu.coursework && (
-                    <div className="mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
-                      <p className="font-bold">RELEVANT COURSEWORK:</p>
-                      <p>{edu.coursework.completed}</p>
+                  {edu.activities && (
+                    <div className="mt-2 text-xs md:text-sm text-foreground leading-relaxed">
+                      <p>{edu.activitiesLabel}</p>
+                      <ul className="list-disc list-outside ml-4 mt-1 space-y-1">
+                        {edu.activities.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
                     </div>
+                  )}
+                  {"coursework" in edu && edu.coursework && (
+                    <details className="group mt-2 text-xs md:text-sm text-foreground leading-relaxed">
+                      <summary className="flex cursor-pointer list-none items-center gap-1 select-none hover:text-accent [&::-webkit-details-marker]:hidden">
+                        <ChevronRight className="size-3.5 shrink-0 transition-transform group-open:rotate-90" aria-hidden="true" />
+                        RELEVANT COURSEWORK
+                      </summary>
+                      <ul className="list-disc list-outside ml-4 mt-1 space-y-1">
+                        {edu.coursework.map((course, i) => (
+                          <li key={i}>{course}</li>
+                        ))}
+                      </ul>
+                    </details>
                   )}
                 </article>
               ))}
@@ -424,7 +528,11 @@ export default function Portfolio() {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs md:text-sm text-foreground leading-relaxed">{project.description}</p>
+                  <ul className="list-disc list-outside ml-4 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                    {project.bullets.map((bullet, i) => (
+                      <li key={i}>{bullet}</li>
+                    ))}
+                  </ul>
                 </article>
               ))}
             </div>
@@ -480,27 +588,28 @@ export default function Portfolio() {
 
         {/* Technical Skills */}
         <section className="mb-12">
-          <h2 className="text-base md:text-lg font-bold mb-4">TECHNICAL SKILLS:</h2>
-          <div className="text-xs md:text-sm space-y-2">
-            <p>
-              <strong>Languages:</strong> Python, TypeScript/JavaScript, Swift, Java, Rust, C, SQL
-            </p>
-            <p>
-              <strong>Backend & Security:</strong> Node.js, Express, FastAPI, Deno, REST APIs, WebSockets, PostgreSQL, Supabase, Firebase/Firestore, Prisma, asyncpg, SQLCipher, Snowflake, OAuth2/PKCE, JWT/JWKS, AES-256-GCM, row-level security
-            </p>
-            <p>
-              <strong>Frontend & Mobile:</strong> SwiftUI, Next.js, React, Tauri, Tailwind CSS, shadcn/ui
-            </p>
-            <p>
-              <strong>Infrastructure & Testing:</strong> Linux/Unix, Azure, Docker, GitHub Actions CI, AWS Bedrock, OpenAI API, Model Context Protocol, Playwright, pytest, Vitest, XCTest, Git
-            </p>
-            <p>
-              <strong>Product:</strong> product requirements, user research, stakeholder interviews, competitive analysis, prioritization, sprint planning, KPI tracking, SEO, product analytics (PostHog), Linear
-            </p>
-            <p>
-              <strong>AI Tooling:</strong> Claude Code, Cursor, OpenAI Codex, Gemini CLI
-            </p>
-          </div>
+          <h2 className="text-base md:text-lg font-bold mb-6">TECHNICAL SKILLS:</h2>
+          <dl className="space-y-4 sm:space-y-3">
+            {skills.map((group) => (
+              <div key={group.label} className="grid gap-2 sm:grid-cols-[10rem_1fr] sm:gap-4">
+                <dt className="text-xs font-mono uppercase tracking-wide text-muted-foreground sm:pt-1">
+                  {group.label}
+                </dt>
+                <dd>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {group.items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-xs text-foreground"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         {/* TL;DR */}
