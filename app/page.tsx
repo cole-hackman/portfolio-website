@@ -83,6 +83,8 @@ const pastWork = [
     bullets: [
       "Interviewed consultants across healthcare, technology, and business development to find where manual relationship tracking cost the most time, surfacing that only 39 of 96 tracked contacts had a recorded last touch.",
       "Built the Python pipeline as its sole engineer, turning law-firm news and email digests into routed relationship signals that matched 86.9% of 465 signals to the firm or person who owned them.",
+      "Raised usable article text from 19% to 73% across 86 items with a full-body top-up stage, converting snippets extraction could not parse into content that yielded named attorneys.",
+      "Reframed the brief from lead generation to relationship intelligence after finding existing tooling already served the original framing, then ranked 12 use cases on a six-dimension matrix to recommend a three-use-case MVP.",
       "Presented the final readout to leadership.",
     ],
   },
