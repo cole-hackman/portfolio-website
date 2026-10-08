@@ -110,11 +110,10 @@ const pastWork = [
     ],
   },
   {
-    year: "(Aug 2025 - Nov 2025)",
+    year: "(Aug 2025 - Oct 2025)",
     name: "AI & Software Engineering Intern @ Elite Bricks",
     bullets: [
-      "Engineered a Python Discord bot to automate internal distribution processes.",
-      "Built internal automation workflows using n8n/Make and external APIs.",
+      "Built and shipped internal tools for a reselling business, owning each system from design through AWS deployment and handoff.",
     ],
   },
   {
