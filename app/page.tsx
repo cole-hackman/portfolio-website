@@ -22,7 +22,7 @@ const projects = [
     bullets: [
       "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, repost management, dead track detection.",
       "Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma.",
-      "4,149 users, 2.5M tracks processed.",
+      "4,428 users and 2.7M tracks processed.",
     ],
     url: "https://tracktoolkit.com",
   },
@@ -40,7 +40,7 @@ const projects = [
     bullets: [
       "Rush management app for fraternity recruitment — live voting with a swipe-based interface, real-time results over custom FastAPI WebSockets.",
       "Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), and QR check-in.",
-      "Piloted with a six-chapter independent Interfraternity Council near Chico State for Fall 2026 rush.",
+      "Piloted with a six-chapter independent Interfraternity Council near Chico State, covering 600 actives and 150 potential new members, for Fall 2026 rush.",
     ],
   },
   {
@@ -65,7 +65,7 @@ const projects = [
     bullets: [
       "Nutrition tracking and meal planning for Cal Poly students, built around campus dining menus pulled from three dining-service APIs into one schema.",
       "Native SwiftUI iOS app and React web client on one Supabase backend; AI meal plans via Supabase Edge Functions and OpenAI with a local fallback; budget and progress tracking.",
-      "1.0.0 TestFlight build in preparation.",
+      "Running a 30-user campus pilot.",
     ],
   },
   {
@@ -79,12 +79,11 @@ const projects = [
 const pastWork = [
   {
     year: "(Jun 2026 - Aug 2026)",
-    name: "Product Engineering Intern @ Keystone Strategy, Seattle",
+    name: "Software Development Engineer Intern, Product Engineering @ Keystone, Seattle",
     bullets: [
       "Interviewed consultants across healthcare, technology, and business development to find where manual relationship tracking cost the most time, surfacing that only 39 of 96 tracked contacts had a recorded last touch.",
-      "Built the Python platform as its sole engineer, turning law-firm news and email digests into routed relationship signals that matched 86.9% of 465 signals to the firm or person who owned them.",
-      "Raised usable article text from 19% to 73% across 86 items with a full-body top-up stage, converting snippets extraction could not parse into content that yielded named attorneys.",
-      "Reframed the brief from lead generation to relationship intelligence after finding existing tooling already served the original framing, then ranked 12 use cases on a six-dimension matrix to recommend a three-use-case MVP.",
+      "Built the Python pipeline as its sole engineer, turning law-firm news and email digests into routed relationship signals that matched 86.9% of 465 signals to the firm or person who owned them.",
+      "Presented the final readout to leadership.",
     ],
   },
   {
@@ -98,8 +97,8 @@ const pastWork = [
     year: "(Jan 2026 - Jun 2026)",
     name: "Full Stack Software Engineer @ PolyBuys (CodeBox Club)",
     bullets: [
-      "Built buyer-to-seller messaging end to end, from the Postgres access model to the React thread UI, scoping conversations to a single listing so neither party could open threads they were not part of.",
-      "Restricted marketplace access to verified Cal Poly accounts with role-based permissions across a TypeScript monorepo, supporting a launch that reached 250+ downloads and signups in its first month.",
+      "Built Cal Poly email and OTP authentication, listing search and filtering, reporting with auto-hide for reported listings, and OpenAI moderation.",
+      "Worked in a React Native (Expo), Convex, and TypeScript monorepo on a 10-person team; the app reached 250+ downloads and signups in the first month after its May 2026 launch.",
     ],
   },
   {
@@ -110,15 +109,14 @@ const pastWork = [
     ],
   },
   {
-    year: "(Aug 2025 - Nov 2025)",
-    name: "AI & Software Engineering Intern @ Elite Bricks",
+    year: "(Aug 2025 - Oct 2025)",
+    name: "AI & Software Engineering Intern @ Elite Bricks, Remote",
     bullets: [
-      "Engineered a Python Discord bot to automate internal distribution processes.",
-      "Built internal automation workflows using n8n/Make and external APIs.",
+      "Owned internal operations tooling end to end, from data model to AWS deployment.",
     ],
   },
   {
-    year: "(Jun 2019 - 2025)",
+    year: "(Jun 2019 - Aug 2025)",
     name: "Founder @ Lake Washington Detailing",
     bullets: [
       "Founded and ran a mobile car-detailing business in the Seattle area, growing to 200+ clients through flyers, customer referrals, and neighborhood marketing on Nextdoor and Facebook.",
@@ -129,26 +127,24 @@ const pastWork = [
 const workExperience = [
   {
     year: "(Aug 2026 - Present)",
-    name: "Software Engineer, Student Volunteer @ AIS4R (Cal Poly Computer Science Department)",
+    name: "Software Engineer, Student Volunteer @ AIS4R, Cal Poly CS Department",
     bullets: [
-      "Built incident-level access control for IntelliSAR, a search-and-rescue coordination dashboard, so coordinators and responders can read only the operations they are assigned to.",
-      "Remediated authorization and IDOR vulnerabilities across a Next.js and Firebase application, enforcing incident isolation with Firebase Authentication and Firestore Security Rules.",
+      "Building incident-level access control for IntelliSAR, a search-and-rescue coordination dashboard, across its Next.js and Firebase stack.",
     ],
   },
   {
     year: "(Jan 2026 - Present)",
-    name: "Computer Science Officer @ AI Ethics Lab (AIEL), Cal Poly",
+    name: "Computer Science Lead @ AI Ethics Lab (AIEL), Cal Poly",
     bullets: [
       "Lead the computer science side of an interdisciplinary research lab.",
-      "Co-authored a State of AI report on AI use and policy at Cal Poly in collaboration with the Academic Senate's Ad Hoc Committee on Generative AI.",
-      "Work included faculty interviews, benchmarking university AI policies, and drafting recommendations for administration.",
+      "Co-authored the State of AI report for Cal Poly's Academic Senate Ad Hoc Committee on Generative AI, conducting interviews across academic colleges, and built a Google Apps Script survey pipeline covering all six colleges.",
     ],
   },
   {
     year: "(Mar 2020 - Present)",
     name: "Founder & Operator @ Cole Soles",
     bullets: [
-      "Founded and scaled e-commerce business to $300K+ in revenue across 1,000+ transactions.",
+      "Founded and scaled an e-commerce resale business to $300K+ in revenue across 1,000+ transactions on Amazon, eBay, and local channels.",
       "Built inventory and profitability tracking systems to manage stock, margin, and cash flow.",
     ],
   },
@@ -166,7 +162,7 @@ const education = [
       "Dean's List every quarter",
       "Y Combinator Startup School 2026",
       "Creative Ambassador for CapCut",
-      "CS Officer at the AI Ethics Lab (AIEL)",
+      "CS Lead at the AI Ethics Lab (AIEL)",
     ],
     coursework: [
       "Data Structures",
@@ -503,7 +499,7 @@ export default function Portfolio() {
               }`}
           >
             <h2 className="text-base md:text-lg font-bold mb-2">SOME PROJECTS I'M WORKING ON:</h2>
-            <p className="text-xs text-muted-foreground mb-6 italic">Metrics as of September 2026.</p>
+            <p className="text-xs text-muted-foreground mb-6 italic">Metrics as of October 2026.</p>
             <div className="space-y-6">
               {projects.map((project, index) => (
                 <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
