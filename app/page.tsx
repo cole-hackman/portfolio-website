@@ -79,7 +79,7 @@ const projects = [
 const pastWork = [
   {
     year: "(Jun 2026 - Aug 2026)",
-    name: "Product Engineering Intern @ Keystone Strategy, Seattle",
+    name: "Software Development Engineer Intern, Product Engineering @ Keystone, Seattle",
     bullets: [
       "Interviewed consultants across healthcare, technology, and business development to find where manual relationship tracking cost the most time, surfacing that only 39 of 96 tracked contacts had a recorded last touch.",
       "Built the Python platform as its sole engineer, turning law-firm news and email digests into routed relationship signals that matched 86.9% of 465 signals to the firm or person who owned them.",
