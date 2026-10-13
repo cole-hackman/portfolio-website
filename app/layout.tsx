@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://colehackman.dev"),
+  metadataBase: new URL("https://www.colehackman.com"),
   alternates: {
     canonical: "/",
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     title: "Cole Hackman - CS Student & Developer Portfolio",
     description:
       "Personal portfolio of Cole Hackman, a Computer Science student at Cal Poly SLO specializing in AI automation, full-stack development, and entrepreneurship.",
-    url: "https://colehackman.dev",
+    url: "https://www.colehackman.com",
     siteName: "Cole Hackman Portfolio",
     locale: "en_US",
     type: "website",
@@ -80,10 +80,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
-  generator: "v0.app",
 }
 
 const jsonLd = {
@@ -93,7 +89,7 @@ const jsonLd = {
   jobTitle: "Computer Science Student & Developer",
   description:
     "Computer Science student at Cal Poly SLO specializing in AI automation, full-stack development, and entrepreneurship.",
-  url: "https://colehackman.dev",
+  url: "https://www.colehackman.com",
   sameAs: ["https://github.com/cole-hackman", "https://www.linkedin.com/in/colehackman/"],
   alumniOf: {
     "@type": "CollegeOrUniversity",
@@ -110,7 +106,7 @@ const jsonLd = {
     "JavaScript",
     "Entrepreneurship",
   ],
-  email: "hackman@calpoly.edu",
+  email: "cole.hackman@outlook.com",
   address: {
     "@type": "PostalAddress",
     addressLocality: "San Luis Obispo",
@@ -125,15 +121,23 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Apply the saved or system theme before first paint so dark-mode users never see a light flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches);if(d){document.documentElement.classList.add("dark")}}catch(e){}})()',
+          }}
+        />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>

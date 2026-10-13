@@ -2,27 +2,31 @@
 
 import type React from "react"
 
-import { useState, useEffect, useLayoutEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { TypingAnimation } from "@/components/ui/typing-animation"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
-import { applyTheme, getInitialDarkMode } from "@/lib/theme"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import {
   ChevronRight,
+  ExternalLink,
   Github,
   Linkedin,
   Mail,
 } from "lucide-react"
 
 const navIconClass =
-  "inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+  "inline-flex size-11 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+
+const EMAIL = "cole.hackman@outlook.com"
+const RESUME_URL: string | null = null // set to "/resume.pdf" once the file is in public/
 
 const projects = [
   {
     name: "Track Toolkit",
     bullets: [
+      "4,428 users and 2.7M tracks processed.",
       "Web toolkit for SoundCloud DJs and power users — playlist merging, bulk unlike/unfollow, repost management, dead track detection.",
       "Built with Next.js + Node.js/Express REST backend, SoundCloud OAuth2 + PKCE, AES-256-GCM token encryption, HMAC-signed sessions, and PostgreSQL + Prisma.",
-      "4,428 users and 2.7M tracks processed.",
     ],
     url: "https://tracktoolkit.com",
   },
@@ -33,7 +37,7 @@ const projects = [
       "Upload your data exports to see who unfollowed you — no login required.",
       "Non-followers are segmented by a client-side heuristic; only anonymous usage analytics leave the browser.",
     ],
-    url: "https://unfollowr.app",
+    url: "https://www.unfollowr.app/",
   },
   {
     name: "RushRank",
@@ -42,6 +46,7 @@ const projects = [
       "Built with Next.js + FastAPI, PostgreSQL/Supabase via asyncpg, Supabase Auth (magic-link), and QR check-in.",
       "Piloted with a six-chapter independent Interfraternity Council near Chico State, covering 600 actives and 150 potential new members, for Fall 2026 rush.",
     ],
+    url: "https://github.com/cole-hackman/rushrank",
   },
   {
     name: "decks",
@@ -136,10 +141,10 @@ const workExperience = [
   },
   {
     year: "(Jan 2026 - Present)",
-    name: "Computer Science Lead @ AI Ethics Lab (AIEL), Cal Poly",
+    name: "Computer Science Officer @ AI Ethics Lab (AIEL), Cal Poly",
     bullets: [
-      "Lead the computer science side of an interdisciplinary research lab.",
-      "Co-authored the State of AI report for Cal Poly's Academic Senate Ad Hoc Committee on Generative AI, conducting interviews across academic colleges, and built a Google Apps Script survey pipeline covering all six colleges.",
+      "Co-lead the computer science side of an interdisciplinary research lab.",
+      "Co-authored the State of AI report for Cal Poly's Academic Senate Ad Hoc Committee on Generative AI, conducting interviews across academic colleges.",
     ],
   },
   {
@@ -161,10 +166,9 @@ const education = [
     degreeBullets: ["GPA: 3.865"],
     activitiesLabel: "Activities and Involvement",
     activities: [
-      "Dean's List every quarter",
+      "3x President's List recipient, Dean's List every quarter",
       "Y Combinator Startup School 2026",
       "Creative Ambassador for CapCut",
-      "CS Lead at the AI Ethics Lab (AIEL)",
     ],
     coursework: [
       "Data Structures",
@@ -186,7 +190,7 @@ const education = [
     year: "(2020 - 2024)",
     name: "Seattle Preparatory School",
     description: "High School Diploma",
-    activitiesLabel: "Activities & Involvement",
+    activitiesLabel: "Activities and Involvement",
     activities: [
       "Panther Journalism Online Editor",
       "Business Club Executive",
@@ -241,12 +245,6 @@ const skills = [
   },
 ]
 
-const directoryItems = [
-  { name: "contact", url: "mailto:hackman@calpoly.edu" },
-  { name: "linkedin", url: "https://www.linkedin.com/in/colehackman/" },
-  { name: "github", url: "https://github.com/cole-hackman/" },
-]
-
 
 
 function useIntersectionObserver(options = {}) {
@@ -294,15 +292,20 @@ export default function Portfolio() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const nameInputRef = useRef<HTMLInputElement>(null)
+  // The element that opened the dialog; focus returns to it on close. Radix only
+  // restores focus to a DialogTrigger, and both contact buttons are plain buttons.
+  const contactTriggerRef = useRef<HTMLElement | null>(null)
+  const openContactForm = (e: React.MouseEvent<HTMLElement>) => {
+    // e.currentTarget, not document.activeElement: Safari and Firefox on macOS do not focus a clicked button.
+    contactTriggerRef.current = e.currentTarget
+    setShowContactForm(true)
+  }
 
   const [introRef, introInView] = useIntersectionObserver()
 
   const [educationRef, educationInView] = useIntersectionObserver()
   const [projectsRef, projectsInView] = useIntersectionObserver()
-
-  useLayoutEffect(() => {
-    applyTheme(getInitialDarkMode())
-  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -314,7 +317,8 @@ export default function Portfolio() {
   }, [])
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" })
   }
 
   const handleContactSubmit = async (e: React.FormEvent) => {
@@ -328,7 +332,7 @@ export default function Portfolio() {
       const body = encodeURIComponent(
         `Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`,
       )
-      const mailtoLink = `mailto:hackman@calpoly.edu?subject=${subject}&body=${body}`
+      const mailtoLink = `mailto:${EMAIL}?subject=${subject}&body=${body}`
 
       window.location.href = mailtoLink
 
@@ -360,10 +364,10 @@ export default function Portfolio() {
       <header className="sticky top-0 z-10 flex items-center justify-between bg-background/95 p-4 backdrop-blur-sm md:p-6">
         <div className="text-lg font-bold font-mono">CCH</div>
 
-        <nav className="flex items-center gap-0.5 sm:gap-1" aria-label="Main navigation">
+        <nav className="flex items-center gap-1" aria-label="Main navigation">
           <button
             type="button"
-            onClick={() => setShowContactForm(true)}
+            onClick={openContactForm}
             className={navIconClass}
             aria-label="Contact"
           >
@@ -374,7 +378,7 @@ export default function Portfolio() {
             rel="noopener noreferrer"
             target="_blank"
             className={navIconClass}
-            aria-label="LinkedIn"
+            aria-label="LinkedIn (opens in a new tab)"
           >
             <Linkedin className="size-4" strokeWidth={1.75} />
           </a>
@@ -383,175 +387,69 @@ export default function Portfolio() {
             rel="noopener noreferrer"
             target="_blank"
             className={navIconClass}
-            aria-label="GitHub"
+            aria-label="GitHub (opens in a new tab)"
           >
             <Github className="size-4" strokeWidth={1.75} />
           </a>
-          <AnimatedThemeToggler
-            className={navIconClass}
-            aria-label="Toggle dark mode"
-          />
+          {RESUME_URL && (
+            <a
+              href={RESUME_URL}
+              className="inline-flex min-h-11 items-center rounded-md px-2 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Resume
+            </a>
+          )}
+          <AnimatedThemeToggler className={navIconClass} />
         </nav>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-3xl mx-auto px-4 md:px-6 pb-12">
+      <main className="max-w-2xl mx-auto px-4 md:px-6 pb-12">
         {/* Introduction */}
         <LazySection>
           <section
             ref={introRef}
-            className={`mb-12 transition-all duration-700 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            className={`mb-12 transition-[opacity,translate] duration-700 motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
             <TypingAnimation
               as="h1"
-              className="text-xl md:text-2xl font-bold mb-4"
+              className="text-4xl md:text-6xl font-semibold tracking-tight mb-6"
               startOnView={false}
               typeSpeed={70}
             >
               Hey, I&apos;m Cole.
             </TypingAnimation>
-            <p className="mb-2 text-sm md:text-base">
-              I'm a CS student at{" "}
+            <p className="mb-2 text-base md:text-lg">
+              CS student at{" "}
               <a
                 href="https://calpoly.edu"
                 className="text-accent hover:underline"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Cal Poly SLO
-              </a>
-              , originally from Seattle.
+                Cal Poly SLO<span className="sr-only"> (opens in a new tab)</span>
+              </a>{" "}
+              building tools people use.
             </p>
-            <p className="mb-8 text-sm md:text-base">
-              I've been building businesses and solving problems with technology since I was young.
-            </p>
-          </section>
-        </LazySection>
-
-
-
-        {/* Education */}
-        <LazySection>
-          <section
-            id="education"
-            ref={educationRef}
-            className={`mb-12 transition-all duration-700 delay-200 ${educationInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-          >
-            <h2 className="text-base md:text-lg font-bold mb-6">EDUCATION:</h2>
-            <div className="space-y-6">
-              {education.map((edu, index) => (
-                <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
-                    <h3 className="text-accent font-medium text-sm md:text-base">{edu.name}</h3>
-                    <time className="text-xs text-muted-foreground">{edu.year}</time>
-                  </div>
-                  <p className="text-xs md:text-sm text-foreground leading-relaxed">
-                    {"degree" in edu && edu.degree ? (
-                      <>
-                        <strong className="font-bold">{edu.degree}</strong>, {edu.description}
-                      </>
-                    ) : (
-                      edu.description
-                    )}
-                  </p>
-                  {"degreeBullets" in edu && edu.degreeBullets && (
-                    <ul className="list-disc list-outside ml-4 mt-1 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
-                      {edu.degreeBullets.map((bullet, i) => (
-                        <li key={i}>{bullet}</li>
-                      ))}
-                    </ul>
-                  )}
-                  {edu.activities && (
-                    <div className="mt-2 text-xs md:text-sm text-foreground leading-relaxed">
-                      <p>{edu.activitiesLabel}</p>
-                      <ul className="list-disc list-outside ml-4 mt-1 space-y-1">
-                        {edu.activities.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {"coursework" in edu && edu.coursework && (
-                    <details className="group mt-2 text-xs md:text-sm text-foreground leading-relaxed">
-                      <summary className="flex cursor-pointer list-none items-center gap-1 select-none hover:text-accent [&::-webkit-details-marker]:hidden">
-                        <ChevronRight className="size-3.5 shrink-0 transition-transform group-open:rotate-90" aria-hidden="true" />
-                        RELEVANT COURSEWORK
-                      </summary>
-                      <ul className="list-disc list-outside ml-4 mt-1 space-y-1">
-                        {edu.coursework.map((course, i) => (
-                          <li key={i}>{course}</li>
-                        ))}
-                      </ul>
-                    </details>
-                  )}
-                </article>
-              ))}
-            </div>
-          </section>
-        </LazySection>
-
-        {/* Current Projects */}
-        <LazySection>
-          <section
-            id="projects"
-            ref={projectsRef}
-            className={`mb-12 transition-all duration-700 delay-300 ${projectsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-          >
-            <h2 className="text-base md:text-lg font-bold mb-2">SOME PROJECTS I'M WORKING ON:</h2>
-            <p className="text-xs text-muted-foreground mb-6 italic">Metrics as of October 2026.</p>
-            <div className="space-y-6">
-              {projects.map((project, index) => (
-                <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    {project.url ? (
-                      <>
-                        <a
-                          href={project.url}
-                          className="text-accent hover:underline font-medium text-sm md:text-base"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          {project.name}
-                        </a>
-                        <span className="text-xs text-muted-foreground" aria-label="External link">
-                          ↗
-                        </span>
-                      </>
-                    ) : (
-                      <span className="text-accent font-medium text-sm md:text-base">
-                        {project.name}
-                      </span>
-                    )}
-                  </div>
-                  <ul className="list-disc list-outside ml-4 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
-                    {project.bullets.map((bullet, i) => (
-                      <li key={i}>{bullet}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-            <p className="text-xs md:text-sm mt-6 text-muted-foreground italic">
-              Currently focused on AI automation, full-stack development, and building tools that solve real problems.
-            </p>
+            <p className="mb-8 text-base md:text-lg">Seeking a Summer 2027 SWE or PM internship.</p>
           </section>
         </LazySection>
 
         {/* Current Work */}
         <section className="mb-12">
-          <h2 className="text-base md:text-lg font-bold mb-6">CURRENT WORK:</h2>
+          <h2 className="text-xl md:text-2xl font-semibold mb-6">CURRENT WORK:</h2>
           <div className="space-y-6">
             {workExperience.map((work, index) => (
               <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
-                  <h3 className="text-accent font-medium text-sm md:text-base">{work.name}</h3>
-                  <time className="text-xs text-muted-foreground">{work.year}</time>
+                  <h3 className="text-foreground font-semibold text-base md:text-lg">{work.name}</h3>
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">{work.year}</span>
                 </div>
                 {work.bullets && (
-                  <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                  <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-sm md:text-base text-foreground leading-relaxed">
                     {work.bullets.map((bullet, i) => (
                       <li key={i}>{bullet}</li>
                     ))}
@@ -564,16 +462,16 @@ export default function Portfolio() {
 
         {/* Past Work */}
         <section className="mb-12">
-          <h2 className="text-base md:text-lg font-bold mb-6">PAST WORK:</h2>
+          <h2 className="text-xl md:text-2xl font-semibold mb-6">PAST WORK:</h2>
           <div className="space-y-6">
             {pastWork.map((work, index) => (
               <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
-                  <h3 className="text-accent font-medium text-sm md:text-base">{work.name}</h3>
-                  <time className="text-xs text-muted-foreground">{work.year}</time>
+                  <h3 className="text-foreground font-semibold text-base md:text-lg">{work.name}</h3>
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">{work.year}</span>
                 </div>
                 {work.bullets && (
-                  <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-xs md:text-sm text-foreground leading-relaxed">
+                  <ul className="list-disc list-outside ml-4 mt-2 space-y-1 text-sm md:text-base text-foreground leading-relaxed">
                     {work.bullets.map((bullet, i) => (
                       <li key={i}>{bullet}</li>
                     ))}
@@ -584,21 +482,65 @@ export default function Portfolio() {
           </div>
         </section>
 
+        {/* Current Projects */}
+        <LazySection>
+          <section
+            id="projects"
+            ref={projectsRef}
+            className={`mb-12 transition-[opacity,translate] duration-700 motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 delay-300 ${projectsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+          >
+            <h2 className="text-xl md:text-2xl font-semibold mb-6">SOME PROJECTS I'M WORKING ON:</h2>
+            <div className="space-y-6">
+              {projects.map((project, index) => (
+                <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-semibold text-base md:text-lg">
+                      {project.url ? (
+                        <a
+                          href={project.url}
+                          className="text-accent hover:underline"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          {project.name}
+                          <span className="sr-only"> (opens in a new tab)</span>
+                        </a>
+                      ) : (
+                        project.name
+                      )}
+                    </h3>
+                    {project.url && (
+                      <ExternalLink className="size-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
+                    )}
+                  </div>
+                  <ul className="list-disc list-outside ml-4 space-y-1 text-sm md:text-base text-foreground leading-relaxed">
+                    {project.bullets.map((bullet, i) => (
+                      <li key={i}>{bullet}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+            <p className="mt-6 text-xs text-muted-foreground">Metrics as of October 2026.</p>
+          </section>
+        </LazySection>
+
         {/* Technical Skills */}
         <section className="mb-12">
-          <h2 className="text-base md:text-lg font-bold mb-6">TECHNICAL SKILLS:</h2>
-          <dl className="space-y-4 sm:space-y-3">
+          <h2 className="text-xl md:text-2xl font-semibold mb-6">TECHNICAL SKILLS:</h2>
+          <dl className="divide-y divide-border">
             {skills.map((group) => (
-              <div key={group.label} className="grid gap-2 sm:grid-cols-[10rem_1fr] sm:gap-4">
+              <div key={group.label} className="grid gap-1 py-3 first:pt-0 last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
                 <dt className="text-xs font-mono uppercase tracking-wide text-muted-foreground sm:pt-1">
                   {group.label}
                 </dt>
                 <dd>
-                  <ul className="flex flex-wrap gap-1.5">
+                  <ul className="flex flex-wrap text-sm md:text-base text-foreground leading-relaxed">
                     {group.items.map((item) => (
                       <li
                         key={item}
-                        className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-xs text-foreground"
+                        className="after:mx-2 after:text-muted-foreground after:content-['·'] last:after:content-none"
                       >
                         {item}
                       </li>
@@ -610,192 +552,260 @@ export default function Portfolio() {
           </dl>
         </section>
 
-        {/* TL;DR */}
-        <section className="mb-12">
-          <h2 className="text-base md:text-lg font-bold mb-4">TL;DR:</h2>
-          <p className="text-xs md:text-sm mb-4">
-            I started building businesses early and haven't stopped. From reselling shoes to building developer tools and AI-powered apps, I like finding problems and shipping solutions. Currently studying CS at Cal Poly while building tools people actually use.
-          </p>
-        </section>
-
-
+        {/* Education */}
+        <LazySection>
+          <section
+            id="education"
+            ref={educationRef}
+            className={`mb-12 transition-[opacity,translate] duration-700 motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 delay-200 ${educationInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+          >
+            <h2 className="text-xl md:text-2xl font-semibold mb-6">EDUCATION:</h2>
+            <div className="space-y-6">
+              {education.map((edu, index) => (
+                <article key={index} className="border-l-2 border-accent pl-3 md:pl-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
+                    <h3 className="text-foreground font-semibold text-base md:text-lg">{edu.name}</h3>
+                    <span className="text-xs text-muted-foreground whitespace-nowrap">{edu.year}</span>
+                  </div>
+                  <p className="text-sm md:text-base text-foreground leading-relaxed">
+                    {"degree" in edu && edu.degree ? (
+                      <>
+                        <strong className="font-bold">{edu.degree}</strong>, {edu.description}
+                      </>
+                    ) : (
+                      edu.description
+                    )}
+                  </p>
+                  {"degreeBullets" in edu && edu.degreeBullets && (
+                    <ul className="list-disc list-outside ml-4 mt-1 space-y-1 text-sm md:text-base text-foreground leading-relaxed">
+                      {edu.degreeBullets.map((bullet, i) => (
+                        <li key={i}>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {edu.activities && (
+                    <div className="mt-2 text-sm md:text-base text-foreground leading-relaxed">
+                      <p>{edu.activitiesLabel}</p>
+                      <ul className="list-disc list-outside ml-4 mt-1 space-y-1">
+                        {edu.activities.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {"coursework" in edu && edu.coursework && (
+                    <details className="group mt-2 text-sm md:text-base text-foreground leading-relaxed">
+                      <summary className="flex cursor-pointer list-none items-center gap-1 select-none hover:text-accent [&::-webkit-details-marker]:hidden">
+                        <ChevronRight className="size-4 shrink-0 transition-transform group-open:rotate-90" aria-hidden="true" />
+                        RELEVANT COURSEWORK
+                      </summary>
+                      <ul className="list-disc list-outside ml-10 mt-1 space-y-1">
+                        {edu.coursework.map((course, i) => (
+                          <li key={i}>{course}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        </LazySection>
 
         {/* Directory */}
         <section id="contact-section" className="mb-12">
-          <h2 className="text-base md:text-lg font-bold mb-4">DIRECTORY:</h2>
-          <ul className="space-y-2 text-xs md:text-sm" role="list">
+          <h2 className="text-xl md:text-2xl font-semibold mb-6">DIRECTORY:</h2>
+          <ul className="list-disc ml-4 space-y-1 text-sm md:text-base">
             <li>
-              •{" "}
-              <button onClick={() => setShowContactForm(true)} className="text-accent hover:underline">
-                contact
+              <a href={`mailto:${EMAIL}`} className="inline-flex min-h-11 items-center text-accent hover:underline">
+                {EMAIL}
+              </a>
+            </li>
+            <li>
+              <button
+                onClick={openContactForm}
+                className="inline-flex min-h-11 items-center text-accent hover:underline"
+              >
+                contact form
               </button>
             </li>
             <li>
-              •{" "}
               <a
                 href="https://www.linkedin.com/in/colehackman/"
-                className="text-accent hover:underline"
+                className="inline-flex min-h-11 items-center text-accent hover:underline"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                linkedin
+                linkedin<span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
             <li>
-              •{" "}
               <a
                 href="https://github.com/cole-hackman/"
-                className="text-accent hover:underline"
+                className="inline-flex min-h-11 items-center text-accent hover:underline"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                github
+                github<span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
+            {RESUME_URL && (
+              <li>
+                <a
+                  href={RESUME_URL}
+                  className="inline-flex min-h-11 items-center text-accent hover:underline"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  resume<span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+            )}
           </ul>
         </section>
+
       </main>
 
       {/* Footer */}
-      <footer className="flex flex-col sm:flex-row justify-between items-center px-4 md:px-6 py-4 text-xs text-muted-foreground gap-2">
-        <span>© 2026 COLE HACKMAN</span>
-        <span>BUILT WITH NEXT.JS</span>
-      </footer>
+      <footer className="px-4 py-8 text-sm text-muted-foreground md:px-6">© 2026 Cole Hackman</footer>
 
       {/* Contact Form Modal */}
-      {showContactForm && (
-        <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="contact-form-title"
+      <Dialog open={showContactForm} onOpenChange={setShowContactForm}>
+        <DialogContent
+          onOpenAutoFocus={(e) => {
+            e.preventDefault()
+            nameInputRef.current?.focus()
+          }}
+          onCloseAutoFocus={(e) => {
+            e.preventDefault()
+            contactTriggerRef.current?.focus()
+          }}
         >
-          <div className="bg-background border border-border rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 id="contact-form-title" className="text-lg font-bold font-mono">
-                  GET IN TOUCH
-                </h3>
-                <button
-                  onClick={() => setShowContactForm(false)}
-                  className="text-muted-foreground hover:text-foreground text-sm"
-                  aria-label="Close contact form"
-                >
-                  CLOSE
-                </button>
-              </div>
-
-              {submitStatus === "success" && (
-                <div className="mb-4 p-3 bg-accent/10 border border-accent/20 rounded text-sm text-accent" role="alert">
-                  Thanks! Your email client should open with the message ready to send.
-                </div>
-              )}
-
-              {submitStatus === "error" && (
-                <div
-                  className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded text-sm text-red-500"
-                  role="alert"
-                >
-                  Something went wrong. Please try again or email me directly.
-                </div>
-              )}
-
-              <form onSubmit={handleContactSubmit} className="space-y-4" noValidate>
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={contactForm.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-3 py-2 bg-background border border-border rounded text-sm focus:outline-none focus:border-accent"
-                    placeholder="Your name"
-                    autoComplete="name"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={contactForm.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-3 py-2 bg-background border border-border rounded text-sm focus:outline-none focus:border-accent"
-                    placeholder="your.email@example.com"
-                    autoComplete="email"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={contactForm.subject}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 bg-background border border-border rounded text-sm focus:outline-none focus:border-accent"
-                    placeholder="What's this about?"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={contactForm.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={4}
-                    className="w-full px-3 py-2 bg-background border border-border rounded text-sm focus:outline-none focus:border-accent resize-none"
-                    placeholder="Tell me about your project, question, or just say hi!"
-                  />
-                </div>
-
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="flex-1 bg-accent text-accent-foreground py-2 px-4 rounded text-sm font-medium hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-                  >
-                    {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowContactForm(false)}
-                    className="px-4 py-2 border border-border rounded text-sm hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-                  >
-                    CANCEL
-                  </button>
-                </div>
-              </form>
-
-              <div className="mt-6 pt-4 border-t border-border">
-                <p className="text-xs text-muted-foreground">
-                  Or email me directly at{" "}
-                  <a href="mailto:hackman@calpoly.edu" className="text-accent hover:underline">
-                    hackman@calpoly.edu
-                  </a>
-                </p>
-              </div>
-            </div>
+          <div className="flex justify-between items-center mb-6">
+            <DialogTitle asChild>
+              <h2 className="text-lg font-bold font-mono">GET IN TOUCH</h2>
+            </DialogTitle>
+            <DialogClose
+              className="text-muted-foreground hover:text-foreground text-sm"
+              aria-label="Close contact form"
+            >
+              CLOSE
+            </DialogClose>
           </div>
-        </div>
-      )}
+          <DialogDescription className="sr-only">
+            Send Cole a message. Submitting opens your email client with the message filled in.
+          </DialogDescription>
+
+          {submitStatus === "success" && (
+            <div className="mb-4 p-3 bg-accent/10 border border-accent/20 rounded-md text-sm text-foreground" role="alert">
+              Thanks! Your email client should open with the message ready to send.
+            </div>
+          )}
+
+          {submitStatus === "error" && (
+            <div
+              className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-md text-sm text-red-700 dark:text-red-400"
+              role="alert"
+            >
+              Something went wrong. Please try again or email me directly.
+            </div>
+          )}
+
+          <form onSubmit={handleContactSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
+                Name *
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                ref={nameInputRef}
+                value={contactForm.name}
+                onChange={handleInputChange}
+                required
+                className="w-full px-3 py-2 bg-background border border-muted-foreground rounded-md text-sm focus:border-accent"
+                placeholder="Your name"
+                autoComplete="name"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                Email *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={contactForm.email}
+                onChange={handleInputChange}
+                required
+                className="w-full px-3 py-2 bg-background border border-muted-foreground rounded-md text-sm focus:border-accent"
+                placeholder="your.email@example.com"
+                autoComplete="email"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                Subject
+              </label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={contactForm.subject}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 bg-background border border-muted-foreground rounded-md text-sm focus:border-accent"
+                placeholder="What's this about?"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium mb-2">
+                Message *
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={contactForm.message}
+                onChange={handleInputChange}
+                required
+                rows={4}
+                className="w-full px-3 py-2 bg-background border border-muted-foreground rounded-md text-sm focus:border-accent resize-none"
+                placeholder="Tell me about your project, question, or just say hi!"
+              />
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex-1 bg-accent text-accent-foreground py-2 px-4 rounded-md text-sm font-medium hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              >
+                {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
+              </button>
+              <DialogClose
+                type="button"
+                className="px-4 py-2 border border-border rounded-md text-sm hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              >
+                CANCEL
+              </DialogClose>
+            </div>
+          </form>
+
+          <div className="mt-6 pt-4 border-t border-border">
+            <p className="text-xs text-muted-foreground">
+              Or email me directly at{" "}
+              <a href={`mailto:${EMAIL}`} className="text-accent hover:underline">
+                {EMAIL}
+              </a>
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Back to Top Button */}
       {showBackToTop && (
@@ -804,7 +814,7 @@ export default function Portfolio() {
           className="fixed bottom-4 md:bottom-6 right-4 md:right-6 bg-accent text-accent-foreground p-3 rounded-full shadow-lg hover:bg-accent/90 transition-all duration-200 z-20 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
           aria-label="Back to top"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
           </svg>
         </button>

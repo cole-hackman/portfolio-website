@@ -245,13 +245,13 @@ export const AnimatedThemeToggler = ({
       onClick={toggleTheme}
       className={cn(className)}
       {...props}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
-        <Sun className="size-4" strokeWidth={1.75} />
+        <Sun className="size-4" strokeWidth={1.75} aria-hidden="true" />
       ) : (
-        <Moon className="size-4" strokeWidth={1.75} />
+        <Moon className="size-4" strokeWidth={1.75} aria-hidden="true" />
       )}
-      <span className="sr-only">Toggle theme</span>
     </button>
   )
 }

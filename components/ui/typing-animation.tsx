@@ -12,6 +12,7 @@ import {
 import {
   motion,
   useInView,
+  useReducedMotion,
   type DOMMotionComponents,
   type HTMLMotionProps,
   type MotionProps,
@@ -89,6 +90,7 @@ export function TypingAnimation({
     amount: 0.3,
     once: true,
   })
+  const reduceMotion = useReducedMotion()
 
   const wordsToAnimate = useMemo(
     () => words ?? (children ? [children] : []),
@@ -106,14 +108,25 @@ export function TypingAnimation({
   )
 
   useEffect(() => {
+    if (reduceMotion) {
+      // Reduced motion: show the final text immediately, no typing.
+      const full = wordsToAnimate[wordsToAnimate.length - 1] ?? ""
+      setDisplayedText(full)
+      setCurrentWordIndex(Math.max(0, wordsToAnimate.length - 1))
+      setCurrentCharIndex(Array.from(full).length)
+      setPhase("typing")
+      return
+    }
     setDisplayedText("")
     setCurrentWordIndex(0)
     setCurrentCharIndex(0)
     setPhase("typing")
-  }, [animationSourceKey])
+  }, [animationSourceKey, reduceMotion, wordsToAnimate])
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout> | null = null
+
+    if (reduceMotion) return
 
     if (shouldStart && wordsToAnimate.length > 0) {
       const timeoutDelay =
@@ -173,6 +186,7 @@ export function TypingAnimation({
       }
     }
   }, [
+    reduceMotion,
     shouldStart,
     phase,
     currentCharIndex,
@@ -217,20 +231,26 @@ export function TypingAnimation({
     <MotionComponent
       ref={elementRef}
       className={cn(
-        "leading-20 tracking-[-0.02em]",
+        "tracking-[-0.02em]",
         Component === "span" && "inline-block",
         className
       )}
       {...props}
     >
-      {displayedText}
-      {shouldShowCursor && (
-        <span
-          className={cn("inline-block", blinkCursor && "animate-blink-cursor")}
-        >
-          {getCursorChar()}
-        </span>
-      )}
+      <span className="sr-only">{wordsToAnimate.join(" ")}</span>
+      <span aria-hidden="true">
+        {displayedText}
+        {shouldShowCursor && (
+          <span
+            className={cn(
+              "inline-block",
+              blinkCursor && "animate-blink-cursor motion-reduce:animate-none"
+            )}
+          >
+            {getCursorChar()}
+          </span>
+        )}
+      </span>
     </MotionComponent>
   )
 }
