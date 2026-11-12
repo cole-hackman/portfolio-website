@@ -36,6 +36,9 @@ passes. Waiting on Cole's review of the diff before commit, PR, merge and live c
   stay in Past Work as ended — 2026-10-08
 - Track Toolkit is never called "SoundCloud Toolkit"; Unfollowr stays because it was
   already on the site — 2026-10-08
+- Visual design stays as it is (audit option 0). Field Notes, Signal Console and Swiss
+  Ledger were mocked up and declined. Don't propose a new look, palette, fonts or
+  layout — Cole, 2026-10-13
 
 ## Landmines
 - `pnpm build` fails under pnpm 11: ERR_PNPM_IGNORED_BUILDS for @tailwindcss/oxide.
