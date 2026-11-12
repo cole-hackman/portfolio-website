@@ -1,22 +1,16 @@
 # STATE — colehackman.com
 
-## Now
-Branch `chore/restore-keystone-bullets` (cut from origin/main @ d71d87e) has an
-uncommitted edit to `app/page.tsx` restoring two Keystone bullets (catalog
-CUR-K-03 19%→73%, CUR-K-08 reframe / 12 use cases) that PR #9 removed. `next build`
-passes. Waiting on Cole's review of the diff before commit, PR, merge and live check.
-
-## Just done
-- d71d87e — PR #9 merged: site facts aligned with ~/Desktop/latexresumetool/resumes/catalog.md
-  (PolyBuys, AIEL, Elite Bricks, Keystone, AIS4R, Cole Soles, LWD, Track Toolkit,
-  RushRank, PolyEats). VERIFIED LIVE on www.colehackman.com 2026-10-08.
-- 53dcdcb — catalog-alignment commit (in PR #9)
-- 462954e / 8d7cad9 — Cole's Elite Bricks + Keystone title hand edits (shipped in PR #9)
+## Now (2026-11-12)
+Nothing in flight on the site. `origin/main` is eb7d872 (PR #11 merged 2026-10-13) and is
+live: www.colehackman.com serves "Computer Science Officer" (checked 2026-11-12 with
+`curl -s https://www.colehackman.com | grep -o "Computer Science Officer"`). This
+branch only adds `CLAUDE.md`, this file and `docs/log/2026-10.md`. No facts changed.
 
 ## Next
-1. Cole reviews the diff → commit, push, open PR, merge, then /verify-deploy.
-2. Set the `@tailwindcss/oxide` value in `pnpm-workspace.yaml` (see Landmines).
-3. When Cole resolves catalog §6a #45, revisit the PolyBuys messaging claim.
+1. Cole answers the disputed facts (AIEL title: site says Officer, resume catalog says
+   Lead; Elite Bricks wording; email: site uses outlook, profile README uses calpoly.edu).
+2. Then make the site and catalog agree, in one PR, and verify live.
+3. Later: a facts check against the catalog (not built).
 
 ## Decisions
 - Site facts come only from resumes/catalog.md in ~/Desktop/latexresumetool, which is
@@ -36,15 +30,26 @@ passes. Waiting on Cole's review of the diff before commit, PR, merge and live c
   stay in Past Work as ended — 2026-10-08
 - Track Toolkit is never called "SoundCloud Toolkit"; Unfollowr stays because it was
   already on the site — 2026-10-08
+- Visual design stays as it is (audit option 0). Field Notes, Signal Console and Swiss
+  Ledger were mocked up and declined. Don't propose a new look, palette, fonts or
+  layout — Cole, 2026-10-13
 
 ## Landmines
-- `pnpm build` fails under pnpm 11: ERR_PNPM_IGNORED_BUILDS for @tailwindcss/oxide.
-  Untracked `pnpm-workspace.yaml` still says "set this to true or false". Build with
-  `./node_modules/.bin/next build` until this is fixed. Vercel builds fine.
-- Local `main` is stale. Production is origin/main, auto-deployed by Vercel to
-  www.colehackman.com. Always branch from `origin/main`.
-- `chore/content-edits` has already been merged three times (#6, #7, #9). Start new
-  branches instead of reusing it.
-- All site content lives in hardcoded arrays at the top of `app/page.tsx`.
-- Unconfirmed: the AIEL line "Lead the computer science side of an
-  interdisciplinary research lab." was kept on the site without Cole confirming it.
+- pnpm 11 (local) rewrites a placeholder `pnpm-workspace.yaml` on install: `allowBuilds:
+  '@tailwindcss/oxide': set this to true or false`; `pnpm install` then fails with
+  ERR_PNPM_IGNORED_BUILDS and `pnpm build` fails. Fix locally: set it to `true`
+  (file is 42 bytes, untracked, not committed). Vercel does not need it: production
+  built eb7d872 without it. Do not commit it without checking a Vercel preview.
+- Local `main` in ~/Developer/portfolio-website is 16 commits behind origin/main and the
+  checkout sits on the merged `ui-audit`. Always branch from `origin/main`; use a worktree.
+- Every remote branch is already merged into main and none is deleted (8 besides main).
+  Never reuse one; `chore/content-edits` was merged three times (#6, #7, #9).
+- `next.config.mjs` sets `ignoreBuildErrors` and `ignoreDuringBuilds`; `tsc --noEmit`
+  reports 2 errors (`components/ui/animated-theme-toggler.tsx` lines 187, 214). Deploys anyway.
+- All site content is hardcoded arrays at the top of `app/page.tsx`; facts are typed twice
+  (catalog and page). Numbers (users, tracks) carry no date or source.
+- Resume catalog may say "CS Lead" for AIEL while the site says "Officer" and "Co-lead";
+  Cole has not settled it (per 2026-11-10 audit; catalog unreadable by agents in a terminal).
+
+## Verify
+Deploy path and live check are in `CLAUDE.md`: `/verify-deploy` on https://www.colehackman.com.
